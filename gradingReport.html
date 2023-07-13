@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Display Student Information</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <h1>Display Student Information</h1>
+
+  <form>
+    <fieldset>
+      <legend>Student Details</legend>
+      <label for="display-student-name">Student Name:</label>
+      <span id="display-student-name"></span><br>
+
+      <label for="display-start-date">Start Date:</label>
+      <span id="display-start-date"></span><br>
+
+      <label for="display-end-date">End Date:</label>
+      <span id="display-end-date"></span><br>
+
+      <label for="display-teacher">Teacher:</label>
+      <span id="display-teacher"></span><br>
+
+      <label for="display-job-coach-name">Job Coach Name:</label>
+      <span id="display-job-coach-name"></span><br>
+
+      <label for="display-work-site">Work Site:</label>
+      <span id="display-work-site"></span><br>
+
+      <label for="display-school">School:</label>
+      <span id="display-school"></span><br>
+    </fieldset>
+
+    <h2>Points Categories</h2>
+
+    <div id="grContainer"></div>
+  </form>
+  <script src="gradingReport.js"></script>
+</body>
+</html>

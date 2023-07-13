@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Information Form</title>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <style>
+      .boldStud{
+          font-weight:bold;
+          
+          border: 1px solid black;
+      }
+  </style>
+  
+</head>
+<body>
+  <h1>Student Information</h1>
+  <h2>Select the start and end dates:</h2>
+
+  <form action="gradingReport.html" id="formToGR" method="GET">
+    <!-- Date Range fieldset -->
+    <fieldset>
+      <legend>Date Range</legend>
+      <label for="start-date">Start Date:</label>
+      <input type="text" id="start-date" name="start-date" required>
+
+      <label for="end-date">End Date:</label>
+      <input type="text" id="end-date" name="end-date" required>
+
+      <label for="duration">Duration:</label>
+      <input type="text" id="duration" name="duration" readonly>
+    </fieldset>
+
+    <!-- Personal Details fieldset -->
+    <fieldset>
+      <legend>Personal Details</legend>
+      <label id="studentNameCD" name="student-name">Student Name: <span class='boldStud' id="studentNameHTML"></span></label>
+
+      <label for="school-year">School Year:</label>
+      <input type="text" autocomplete="off" id="school-year" name="school-year" required>
+
+      <label for="grade">Grade:</label>
+      <input type="text" autocomplete="off" id="grade" name="grade" required>
+    </fieldset>
+
+    <!-- Work Details fieldset -->
+    <fieldset>
+      <legend>Work Details</legend>
+      <label for="teacher">Teacher:</label>
+      <input type="text" autocomplete="off" id="teacher" name="teacher" required>
+
+      <label for="job-coach-name">Job Coach Name:</label>
+      <input type="text" autocomplete="off" id="job-coach-name" name="job-coach-name" required>
+
+      <label for="work-site">Work Site:</label>
+      <input type="text" autocomplete="off" id="work-site" name="work-site" required>
+
+      <label for="school">School:</label>
+      <input type="text" autocomplete="off" id="school" name="school" required>
+    </fieldset>
+    <input type="hidden" id="sid" name="studentID" />
+    <input type="submit" onclick="newFormSubmit()" value="Submit">
+
+  </form>
+  <script src="contextualData.js"></script>
+</body>
+</html>
