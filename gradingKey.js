@@ -10,13 +10,6 @@ const studentName = new URLSearchParams(window.location.search).get('studentName
     var studentNameElement = document.getElementById('studentNameHTML');
     studentNameElement.textContent = studentName;
 
-// setInterval(function(){
-//   if(date != document.getElementById("gradingDate").value){
-//       date = document.getElementById("gradingDate").value;
-//       loadButtons();
-//   }
-// }, 1000);
-
 var buttonData;
 function dateRefresh(){
     if(date != document.getElementById("gradingDate").value){
@@ -76,7 +69,7 @@ function createButtons(data) {
     buttonElement.addEventListener("click", function() {
       // Toggle button color between red and grey
       if (this.style.backgroundColor === 'lightgreen') {
-        this.style.backgroundColor = 'lightgray';
+        this.style.backgroundColor = '#BDD5E7';
       } else {
         this.style.backgroundColor = 'lightgreen';
       }
