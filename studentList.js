@@ -12,7 +12,7 @@ function getStudent() {
     if (this.readyState == 4 && this.status == 200) {
       var stdlist = JSON.parse(this.response);
       for(var i = 0; i < stdlist.length; i++) {
-        var studentBlock = '<div class="block student-row">' +
+        var studentBlock = '<div class="block student-row" onclick="sendSIDAndSNAME(' + stdlist[i][0] + ', \'' + stdlist[i][1].replace("+", "") + '\')">' +
           '<div class="student-name">' + stdlist[i][1].replace("+", " ") + '</div>' +
           '<i class="fas fa-trash-alt delete-icon" onclick="confirmDelete(' + stdlist[i][0] + ')"></i>' +
           '</div>';
