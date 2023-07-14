@@ -1,17 +1,22 @@
 <?php
 include 'dbConnection.php';
-$studentName = $_POST['DeleteStudentName'];
-echo $studentName;
+$studentId = $_POST['studentId'];
+echo $studentId;
 
-$sql = "DELETE FROM studentKey WHERE student_name = '$studentName'";
+$sql = "DELETE FROM studentKey WHERE student_id = '$studentId'";
 
-    if ($conn->query($sql) === TRUE) {
-        echo "Student deleted successfully";
-    } else {
-        echo "Error deleting student: " . $conn->error;
-    }
+if ($conn->query($sql) === TRUE) {
+    echo "Student deleted successfully";
+} else {
+    echo "Error deleting student: " . $conn->error;
+}
 $conn->close();
 ?>
+
+
+
+
+
 
 
 
