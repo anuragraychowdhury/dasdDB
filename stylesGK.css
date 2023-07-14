@@ -1,4 +1,4 @@
-save-changes {
+.save-changes {
   width: 200px;
   height: 60px;
   font-size: 25px;
@@ -13,11 +13,12 @@ save-changes {
 }
 
 .block {
+  position: relative; /* Added */
   display: flex;
   align-items: center;
   width: 100%;
   border: 2px solid #eaeaea;
-  background-color: #BDD5E7;
+  background-color: #bdd5e7;
   color: #131b75;
   padding: 14px 10px;
   font-size: 20px;
@@ -30,6 +31,12 @@ save-changes {
 .block:hover {
   background-color: lightgreen;
   color: black;
+}
+
+.trashcan-icon {
+  position: absolute; /* Added */
+  right: 10px; /* Added */
+  color: red; /* Added */
 }
 
 .snack-bar {
@@ -91,12 +98,12 @@ body {
 
 .block.light-mode {
   background-color: lightgray;
-  color: #BDD5E7;
+  color: #bdd5e7;
 }
 
 .block.light-mode:hover {
   background-color: lightgreen;
-  color: #BDD5E7;
+  color: #bdd5e7;
 }
 
 .snack-bar.light-mode {
