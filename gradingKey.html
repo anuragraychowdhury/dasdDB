@@ -7,10 +7,11 @@
 </head>
 
 <body>
-<button  id="generateReportButton" onclick="sendNameID()">Generate Report</button>
+<button id="generateReportButton" onclick="sendNameID()">Generate Report</button>
+<button class="add-skill-button" onclick="addSkill()">Add Skill</button>
 <h1 class="custom-font"> Grading Key</h1>
 <h2 class="custom-font">Student Name: <span id="studentNameHTML"></span></h2>
-<h3>Date: <input type="date" id="gradingDate" onchange='dateRefresh()'></h3>
+<h2>Date: <input type="date" id="gradingDate" onchange='dateRefresh()'></h2>
 
 <div id="buttonContainer">
     <!-- Buttons will be dynamically created here -->
