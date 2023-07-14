@@ -54,6 +54,53 @@ function loadReport() {
   xhr.send();
 }
 
+function createTable(array)
+{
+    var table;
+    var grContainer = document.getElementById('grContainer')
+
+    var categoryContainer = {};
+    var categories = [];
+
+    
+        for (let i=0; i<array.length;++i){
+            var skill = array[i][0];
+            var category = array[i][1].trim();
+            var totalGrade = array[i][2];
+            if (!categoryContainer.hasOwnProperty(category)) {
+                // !categoryContainer.hasOwnProperty(category)
+                //Create a new category container if it doesn't exist
+                categoryContainer[category] = document.createElement("div");
+                categories.push(category);
+                table = document.createElement("table");
+                var row = table.insertRow();
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                cell1.innerHTML=category;
+                cell2.innerHTML="Total Grade";
+            }
+            row=table.insertRow();
+            cell1 = row.insertCell(0);
+            cell2 = row.insertCell(1);
+            cell1.innerHTML=skill;
+            cell2.innerHTML=totalGrade;
+            
+            categoryContainer[category].appendChild(table);
+    }
+    
+    //var lastCategoryIndex = categories.length - 1;
+    categories.forEach(function(category, index) {
+    var categoryDiv = categoryContainer[category];
+
+    if (index !== 0) {
+      var categoryHeading = document.createElement("br");
+      categoryDiv.insertBefore(categoryHeading, categoryDiv.firstChild);
+    }
+
+    grContainer.appendChild(categoryDiv);
+  });
+}
+
 $(function() {
   $("#start-date").datepicker({
     dateFormat: "mm/dd/yy",
