@@ -1,6 +1,5 @@
-/* Light mode styles */
-
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -9,6 +8,8 @@ html, body {
 body {
   display: flex;
   flex-direction: column;
+  background-color: #eaeaea; /* Off-white */
+  color: #131b75; /* Dark navy */
 }
 
 #myInput {
@@ -17,6 +18,9 @@ body {
   padding: 12px 20px 12px 40px;
   border: 1px solid #ddd;
   margin-bottom: 12px;
+  border-radius: 10px;
+  background-color: #f2f2f2; /* Off-white */
+  color: #131b75; /* Dark navy */
 }
 
 .student-row {
@@ -34,18 +38,20 @@ body {
   align-items: center;
   width: 98%;
   border: 2px transparent;
-  background-color: lightgray;
-  color: black;
+  background-color: #BDD5E7; /* Light blue */
+  color: #131b75; /* Dark navy */
   padding: 14px 10px;
   font-size: 20px;
   cursor: pointer;
   text-align: left;
   font-family: "georgia-font";
+  border-radius: 10px;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .block:hover {
   background-color: lightgreen;
-  color: black;
+  color: #131b75; /* Dark navy */
 }
 
 .block .student-name {
@@ -59,14 +65,20 @@ body {
 }
 
 .open-button {
-  color: black;
+  color: #f2f2f2; /* Off-white */
   padding: 16px 20px;
-  border: blue;
+  border: none;
   cursor: pointer;
   opacity: 0.8;
   float: right;
   margin-right: 10px;
   width: auto;
+  border-radius: 10px;
+  background-color: blue;
+}
+
+.open-button:hover {
+  background-color: #010142; /* Dark navy */
 }
 
 .form-popup {
@@ -76,7 +88,9 @@ body {
   right: 15px;
   border: 3px solid #f1f1f1;
   z-index: 9;
-  background-color: white;
+  background-color: #f2f2f2; /* Off-white */
+  border-radius: 10px;
+  color: #131b75; /* Dark navy */
 }
 
 .form-container {
@@ -84,28 +98,36 @@ body {
   padding: 10px;
 }
 
-.form-container input[type=text],
-.form-container input[type=password] {
+.form-container input[type="text"],
+.form-container input[type="password"] {
   width: 100%;
   padding: 15px;
   margin: 5px 0 22px 0;
   border: none;
   background: #f1f1f1;
+  border-radius: 10px;
+  color: #131b75; /* Dark navy */
 }
 
 .form-container .btn {
-  background-color: #04AA6D;
-  color: white;
+  background-color: blue;
+  color: #f2f2f2; /* Off-white */
   padding: 16px 20px;
   border: none;
   cursor: pointer;
   width: 100%;
   margin-bottom: 10px;
   opacity: 0.8;
+  border-radius: 10px;
+}
+
+.form-container .btn:hover {
+  background-color: #010142; /* Dark navy */
 }
 
 .form-container .cancel {
   background-color: red;
+  border-radius: 10px;
 }
 
 #snackbar {
@@ -113,9 +135,9 @@ body {
   min-width: 250px;
   margin-left: -125px;
   background-color: #333;
-  color: #fff;
+  color: #f2f2f2; /* Off-white */
   text-align: center;
-  border-radius: 2px;
+  border-radius: 10px;
   padding: 16px;
   position: fixed;
   z-index: 1;
@@ -128,64 +150,4 @@ body {
   visibility: visible;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
-}
-
-/* Dark mode styles */
-
-/* Dark mode styles */
-
-body.dark-mode {
-  background-color: #121212;
-  color: #fff;
-}
-
-#myInput.dark-mode {
-  border: 1px solid #888;
-  background-color: #222;
-  color: #fff;
-}
-
-.dark-mode .block {
-  background-color: #404040;
-  color: white;
-}
-
-body.dark-mode .block:hover {
-  background-color: #1DB954;
-  color: #fff;
-}
-
-.block.dark-mode .delete-icon {
-  color: #ff5555;
-}
-
-.open-button.dark-mode {
-  color: #fff;
-  border: 2px solid #555;
-}
-
-.form-popup.dark-mode {
-  border: 3px solid #666;
-  background-color: #333;
-  color: #fff;
-}
-
-.form-container.dark-mode input[type=text],
-.form-container.dark-mode input[type=password] {
-  background-color: #222;
-  color: #fff;
-}
-
-.form-container.dark-mode .btn {
-  background-color: #888;
-  border-color: #888;
-}
-
-.form-container.dark-mode .cancel {
-  background-color: #cc5555;
-}
-
-#snackbar.dark-mode {
-  background-color: #222;
-  color: #fff;
 }
