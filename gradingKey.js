@@ -40,16 +40,16 @@ function loadButtons() {
 }
 
 function createButtons(data) {
-    buttonData = data;
+  buttonData = data;
   var buttonContainer = document.getElementById("buttonContainer");
   var categoryContainer = {};
   var categories = [];
 
-  buttonData.forEach(function(button) {
+  buttonData.forEach(function (button) {
     var skillId = button[0];
     var skillName = button[1];
     var category = button[2];
-    var grade = button[3];//NEW
+    var grade = button[3]; // NEW
 
     if (!categoryContainer.hasOwnProperty(category)) {
       // Create a new category container if it doesn't exist
@@ -60,23 +60,36 @@ function createButtons(data) {
     var buttonElement = document.createElement("button");
     buttonElement.className = "block";
     buttonElement.textContent = skillName;
-    //here?-----------------------------------------------------------------------
-    if (grade == 1){
-        buttonElement.style.backgroundColor = 'lightgreen';
+
+    // Add trashcan icon
+    var trashcanIcon = document.createElement("i");
+    trashcanIcon.className = "fas fa-trash-alt trashcan-icon";
+    buttonElement.appendChild(trashcanIcon);
+
+    if (grade == 1) {
+      buttonElement.style.backgroundColor = "lightgreen";
     }
 
-    // Add click event listener if needed
-    buttonElement.addEventListener("click", function() {
-      // Toggle button color between red and grey
-      if (this.style.backgroundColor === 'lightgreen') {
-        this.style.backgroundColor = '#BDD5E7';
-      } else {
-        this.style.backgroundColor = 'lightgreen';
+    // Add click event listener to the trashcan icon
+    trashcanIcon.addEventListener("click", function (event) {
+      event.stopPropagation();
+      var skillIndex = buttonData.findIndex(function (item) {
+        return item[0] === skillId;
+      });
+      if (skillIndex !== -1) {
+        buttonData.splice(skillIndex, 1);
+        loadButtons(); // Reload the buttons after removing the skill
       }
+    });
 
-      // Handle button click event
-      // You can add your custom logic here
-      //console.log('Button clicked:', this.textContent);
+    // Add click event listener to the button
+    buttonElement.addEventListener("click", function () {
+      // Toggle button color between red and grey
+      if (this.style.backgroundColor === "lightgreen") {
+        this.style.backgroundColor = "#BDD5E7";
+      } else {
+        this.style.backgroundColor = "lightgreen";
+      }
     });
 
     categoryContainer[category].appendChild(buttonElement);
@@ -84,7 +97,7 @@ function createButtons(data) {
 
   // Append the category containers to the button container
   var lastCategoryIndex = categories.length - 1;
-  categories.forEach(function(category, index) {
+  categories.forEach(function (category, index) {
     var categoryDiv = categoryContainer[category];
 
     if (index !== lastCategoryIndex) {
@@ -97,6 +110,7 @@ function createButtons(data) {
     buttonContainer.appendChild(categoryDiv);
   });
 }
+
 
 function saveChanges() {
   var sid = new URLSearchParams(window.location.search).get('studentID');
