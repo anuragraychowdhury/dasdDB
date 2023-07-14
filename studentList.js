@@ -1,10 +1,6 @@
 getStudent();
 bindEventHandlers(); // This binds the event handler
 
-function toggleDarkMode() {
-  document.body.classList.toggle('dark-mode');
-}
-
 function getStudent() {
   var table = document.getElementById("myTable");
   if (table.innerHTML != "<tr class='header'><th style='width:10%'>Name</th></tr>"){
