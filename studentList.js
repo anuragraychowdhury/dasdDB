@@ -1,51 +1,57 @@
 getStudent();
 bindEventHandlers(); // This binds the event handler
 
-function getStudent()
-{
-    
-    var table = document.getElementById("myTable");
-    if (table.innerHTML != "<tr class='header'><th style='width:10%'>Name</th></tr>"){
-        table.innerHTML ="<tr class='header'><th style='width:10%'>Name</th></tr>";
+function getStudent() {
+  var table = document.getElementById("myTable");
+  if (table.innerHTML != "<tr class='header'><th style='width:10%'>Name</th></tr>"){
+    table.innerHTML ="<tr class='header'><th style='width:10%'>Name</th></tr>";
+  }
+
+  var oHttp = new XMLHttpRequest();
+  oHttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var stdlist = JSON.parse(this.response);
+      for(var i = 0; i < stdlist.length; i++) {
+        var studentBlock = '<div class="block student-row">' +
+          '<div class="student-name">' + stdlist[i][1].replace("+", " ") + '</div>' +
+          '<i class="fas fa-trash-alt delete-icon" onclick="confirmDelete(' + stdlist[i][0] + ')"></i>' +
+          '</div>';
+        var newRow = table.insertRow(-1);
+        var cell = newRow.insertCell(0);
+        cell.innerHTML = studentBlock;
+      }
     }
-    
-    var oHttp = new XMLHttpRequest();
-    var oThat = this;
- 
- oHttp.onreadystatechange = function() 
-    {
-        if (this.readyState == 4 && this.status == 200) 
-            {
-                var stdlist = JSON.parse(this.response);
-                //debugger;
-                for(var i = 0; i < stdlist.length; i++)
-                    {
-                        
-                        
-                     document.getElementById("myTable").innerHTML += '<tr> <td> <div class="block" id="studName" onclick="sendSIDAndSNAME(' + stdlist[i][0] + ', \'' + stdlist[i][1].replace("+", "") + '\')">' + stdlist[i][1].replace("+", " ") + '</div> </td> </tr>'; 
-                        
-                        // document.getElementById("myTable").innerHTML += '<tr> <td> <div class="block" id="studName" onclick="sendSNAME(\'' + stdlist[i][1] + '\')">' + stdlist[i][1] + '</div> </td> </tr>';
-
-
-                        //document.getElementById("myTable").innerHTML += '<tr> <td> <div class="block" id="studName" onclick="sendSID(' + stdlist[i][0] + ')">' + stdlist[i][1] + '</div> </td> </tr>';
-                        
-                        
-
-                        /*
-                        newrow = document.getElementById("myTable").insertRow(1);
-                        id = newrow.insertCell(0);
-                        id.innerHTML = '<button id="studId" >'+stdlist[i][0]+'</button>';
-                        nameVariable = newrow.insertCell(1);
-                        nameVariable.innerHTML = '<button id="studName">'+stdlist[i][1]+'</button>';
-                        */
-                    }//"<a onClick=\"hifi("+ stdlist[i].ID+");\">"+stdlist[i].Name+"</a>";
-                  // document.getElementById("myInput").onkeyup = filterTable(); 
-                }
-            };
-    oHttp.open("GET", "getStudents.php", true);
-    oHttp.send();
+  };
+  oHttp.open("GET", "getStudents.php", true);
+  oHttp.send();
 }
 
+// This function prompts the confirmation message before deleting a student
+function confirmDelete(studentId) {
+  var confirmation = confirm("Are you sure you want to delete this student?");
+  if (confirmation) {
+    deleteStudent(studentId);
+  }
+}
+
+// This function deletes a student with the given student ID
+function deleteStudent(studentId) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("POST", "deleteStudent.php?", true);
+  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(xhttp.responseText);
+      // Reload the student list after deletion
+      getStudent();
+      showSnackbar("Student deleted!");
+    }
+  };
+
+  var params = 'studentId=' + encodeURIComponent(studentId);
+  xhttp.send(params);
+}
 
 
 function sendSID(but)
@@ -103,21 +109,6 @@ function addStudent() {
   };
 
   var params='AddStudentName='+encodeURIComponent(document.getElementById("AddStudentName").value);
-  xhttp.send(params);
-}
-
-function deleteStudent() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.open("POST", "deleteStudent.php?", true);
-  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(xhttp.responseText);
-    }
-  };
-
-  var params='DeleteStudentName='+encodeURIComponent(document.getElementById("DeleteStudentName").value);
   xhttp.send(params);
 }
 
