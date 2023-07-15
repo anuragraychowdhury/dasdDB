@@ -109,6 +109,23 @@ function createButtons(data) {
   });
 }
 
+function addSkill() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("POST", "addSkill.php", true);
+  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        console.log(xhttp.responseText);
+    }
+  };
+
+  var skill = document.getElementById("AddSkill").value;
+  var category = document.getElementById("AddCategory").value;
+  var params = 'AddSkill=' + encodeURIComponent(skill) + '&AddCategory=' + encodeURIComponent(category);
+  xhttp.send(params);
+}
+
 function deleteSkill(skillId) {
   var xhttp = new XMLHttpRequest();
   xhttp.open("POST", "deleteSkill.php?", true);
@@ -182,4 +199,33 @@ function sendNameID() {
   document.getElementById("sid").value = sid;
   document.getElementById("sname").value = studentName;
   document.getElementById("formToCD").submit();
+}
+
+function openAddForm() {
+  document.getElementById("addSkillForm").style.display = "block";
+}
+
+function closeAddForm() {
+  document.getElementById("addSkillForm").style.display = "none";
+}
+
+function addSkillValidation() {
+  var skillName = document.getElementById("AddSkill").value;
+  var category = document.getElementById("AddCategory").value;
+  
+  if (skillName === "" || category === "") {
+    confirmAction();
+  } else {
+    addSkill();
+    closeAddForm();
+    showSnackbar("Skill added!");
+  }
+}
+
+function disableAddSkillButton() {
+  document.getElementById("add-skill-button").disabled = true;
+}
+
+function enableAddSkillButton() {
+  document.getElementById("add-skill-button").disabled = false;
 }
