@@ -70,64 +70,62 @@ body {
   border: none;
   cursor: pointer;
   opacity: 0.8;
-  float: right;
-  margin-right: 10px;
+  position: fixed; /* Added */
+  top: 10px; /* Added */
+  right: 10px; /* Added */
   width: auto;
   border-radius: 10px;
-  background-color: blue;
+  background-color: #010142; /* Dark navy */
 }
 
 .open-button:hover {
-  background-color: #010142; /* Dark navy */
+  background-color: #01117f; /* Darker shade of navy blue on hover */
 }
 
 .form-popup {
   display: none;
   position: fixed;
-  bottom: 100px;
+  bottom: 0;
   right: 15px;
-  border: 3px solid #f1f1f1;
+  border: 1px solid #ccc;
   z-index: 9;
-  background-color: #f2f2f2; /* Off-white */
-  border-radius: 10px;
-  color: #131b75; /* Dark navy */
-}
-
-.form-container {
-  max-width: 300px;
-  padding: 10px;
-}
-
-.form-container input[type="text"],
-.form-container input[type="password"] {
-  width: 100%;
+  background-color: #f1f1f1;
   padding: 15px;
-  margin: 5px 0 22px 0;
-  border: none;
-  background: #f1f1f1;
-  border-radius: 10px;
-  color: #131b75; /* Dark navy */
+  width: 300px;
+  max-width: 90%;
 }
 
-.form-container .btn {
-  background-color: blue;
-  color: #f2f2f2; /* Off-white */
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
+.form-popup h1 {
+  font-size: 24px;
   margin-bottom: 10px;
-  opacity: 0.8;
-  border-radius: 10px;
 }
 
-.form-container .btn:hover {
-  background-color: #010142; /* Dark navy */
+.form-popup label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
-.form-container .cancel {
-  background-color: red;
-  border-radius: 10px;
+.form-popup input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-popup button {
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+}
+
+.form-popup .cancel {
+  background-color: #ccc;
 }
 
 #snackbar {
@@ -151,3 +149,5 @@ body {
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
+
+
