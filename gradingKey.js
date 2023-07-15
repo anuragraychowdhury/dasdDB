@@ -1,90 +1,68 @@
 getCurrentDate();
-gradingDate = document.getElementById("gradingDate")
+var gradingDate = document.getElementById("gradingDate");
 var date = gradingDate.value;
-const sid = new URLSearchParams(window.location.search).get('studentID');
+var sid = new URLSearchParams(window.location.search).get('studentID');
 loadButtons();
-// window.addEventListener("load", loadButtons);
 
-const studentName = new URLSearchParams(window.location.search).get('studentName');
-    // Set the student name in the <span> element
-    var studentNameElement = document.getElementById('studentNameHTML');
-    studentNameElement.textContent = studentName;
+var studentName = new URLSearchParams(window.location.search).get('studentName');
+var studentNameElement = document.getElementById('studentNameHTML');
+studentNameElement.textContent = studentName;
 
 var buttonData;
-function dateRefresh(){
-    if(date != document.getElementById("gradingDate").value){
-       date = document.getElementById("gradingDate").value;
-       loadButtons();
-    }
-}
-function getCurrentDate() {
-    const currentDate = new Date().toISOString().split('T')[0];
-    document.getElementById("gradingDate").value = currentDate;
+
+function dateRefresh() {
+  if (date !== document.getElementById("gradingDate").value) {
+    date = document.getElementById("gradingDate").value;
+    loadButtons();
+  }
 }
 
-// Make an AJAX request to fetch the button data
+function getCurrentDate() {
+  const currentDate = new Date().toISOString().split('T')[0];
+  document.getElementById("gradingDate").value = currentDate;
+}
+
 function loadButtons() {
-    var buttonContainer = document.getElementById("buttonContainer");
-    if (buttonContainer.innerHTML != ""){
-        buttonContainer.innerHTML ="";
-    }
+  var buttonContainer = document.getElementById("buttonContainer");
+  if (buttonContainer.innerHTML !== "") {
+    buttonContainer.innerHTML = "";
+  }
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4 && xhr.status === 200) {
-      var buttonData = JSON.parse(xhr.responseText);
+      buttonData = JSON.parse(xhr.responseText);
       createButtons(buttonData);
     }
   };
-  xhr.open("GET", "getGradingButtons.php?grading_sid="+sid+"&grading_date=" + date, true);
+  xhr.open("GET", "getGradingButtons.php?grading_sid=" + sid + "&grading_date=" + date, true);
   xhr.send();
 }
 
 function createButtons(data) {
-  buttonData = data;
   var buttonContainer = document.getElementById("buttonContainer");
   var categoryContainer = {};
   var categories = [];
 
-  buttonData.forEach(function (button) {
+  data.forEach(function(button) {
     var skillId = button[0];
     var skillName = button[1];
     var category = button[2];
     var grade = button[3]; // NEW
 
     if (!categoryContainer.hasOwnProperty(category)) {
-      // Create a new category container if it doesn't exist
       categoryContainer[category] = document.createElement("div");
       categories.push(category);
     }
+
+    var skillContainer = document.createElement("div"); // Create a container for the skill
+    skillContainer.className = "skill-container";
 
     var buttonElement = document.createElement("button");
     buttonElement.className = "block";
     buttonElement.textContent = skillName;
 
-    // Add trashcan icon
-    var trashcanIcon = document.createElement("i");
-    trashcanIcon.className = "fas fa-trash-alt trashcan-icon";
-    buttonElement.appendChild(trashcanIcon);
-
-    if (grade == 1) {
-      buttonElement.style.backgroundColor = "lightgreen";
-    }
-
-    // Add click event listener to the trashcan icon
-    trashcanIcon.addEventListener("click", function (event) {
-      event.stopPropagation();
-      var skillIndex = buttonData.findIndex(function (item) {
-        return item[0] === skillId;
-      });
-      if (skillIndex !== -1) {
-        buttonData.splice(skillIndex, 1);
-        loadButtons(); // Reload the buttons after removing the skill
-      }
-    });
-
     // Add click event listener to the button
-    buttonElement.addEventListener("click", function () {
-      // Toggle button color between red and grey
+    buttonElement.addEventListener("click", function() {
       if (this.style.backgroundColor === "lightgreen") {
         this.style.backgroundColor = "#BDD5E7";
       } else {
@@ -92,12 +70,17 @@ function createButtons(data) {
       }
     });
 
-    categoryContainer[category].appendChild(buttonElement);
+    var trashcanIcon = document.createElement("i");
+    trashcanIcon.className = "fas fa-trash-alt trashcan-icon";
+    trashcanIcon.dataset.skillId = skillId; // Set the skillId as a data attribute
+
+    skillContainer.appendChild(buttonElement); // Add the button to the skill container
+    buttonElement.appendChild(trashcanIcon); // Add the trash can icon to the button element
+    categoryContainer[category].appendChild(skillContainer);
   });
 
-  // Append the category containers to the button container
   var lastCategoryIndex = categories.length - 1;
-  categories.forEach(function (category, index) {
+  categories.forEach(function(category, index) {
     var categoryDiv = categoryContainer[category];
 
     if (index !== lastCategoryIndex) {
@@ -109,11 +92,43 @@ function createButtons(data) {
 
     buttonContainer.appendChild(categoryDiv);
   });
+
+  // Attach event listener for trashcan icon using event delegation
+  buttonContainer.addEventListener("click", function(event) {
+    var target = event.target;
+
+    // Check if the clicked element has the trashcan icon class
+    if (target.classList.contains("trashcan-icon")) {
+      console.log("Trash clicked");
+
+      if (confirm("Are you sure you want to remove this skill?")) {
+          var skillId = target.dataset.skillId;
+          deleteSkill(skillId)
+        }
+    }
+  });
+}
+
+function deleteSkill(skillId) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("POST", "deleteSkill.php?", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(xhttp.responseText);
+      // Reload the buttons after deletion
+      loadButtons();
+      showSnackbar("Skill deleted!");
+    }
+  };
+
+  var params = "skillId=" + encodeURIComponent(skillId);
+  xhttp.send(params);
 }
 
 
 function saveChanges() {
-  var sid = new URLSearchParams(window.location.search).get('studentID');
   var date = document.getElementById('gradingDate').value;
   var skills = [];
 
@@ -123,15 +138,10 @@ function saveChanges() {
     var button = buttons[i];
     var skillId = buttonData[i][0];
 
-    // Check if the button is selected
     if (button.style.backgroundColor === 'lightgreen') {
-      // Add the skillId to the skills array
       skills.push(skillId);
     }
   }
-
-  // Convert the skills array to a comma-separated string
-  var skillsString = skills.join(',');
 
   var xhr = new XMLHttpRequest();
   xhr.open('POST', 'saveData.php', true);
@@ -139,45 +149,37 @@ function saveChanges() {
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4 && xhr.status === 200) {
       var response = xhr.responseText;
-      console.log(response); // Log the response for debugging
+      console.log(response);
       showSnackBar('Changes saved');
     }
   };
 
   var params = 'grading_sid=' + encodeURIComponent(sid) +
     '&grading_date=' + encodeURIComponent(date) +
-    '&skills=' + encodeURIComponent(skillsString);
+    '&skills=' + encodeURIComponent(skills.join(','));
 
   xhr.send(params);
 }
 
 function showSnackBar(message) {
-  // Create a snack bar element
   var snackBar = document.createElement('div');
   snackBar.className = 'snack-bar';
   snackBar.textContent = message;
 
-  // Append the snack bar to the snack bar container
   var snackBarContainer = document.getElementById('snackBarContainer');
   snackBarContainer.appendChild(snackBar);
 
-  // Trigger the CSS animation
-  setTimeout(function () {
+  setTimeout(function() {
     snackBar.classList.add('show');
-  }, 100); // Delaying the addition of 'show' class for 100 milliseconds
+  }, 100);
 
-  // After a certain duration, remove the snack bar
-  setTimeout(function () {
+  setTimeout(function() {
     snackBarContainer.removeChild(snackBar);
-  }, 3000); // Adjust the timeout (in milliseconds) to control how long the snack bar stays visible
+  }, 3000);
 }
 
-function sendNameID(){
-    
-        document.getElementById("sid").value = sid;
-    
-        document.getElementById("sname").value = studentName;
-        
-        document.getElementById("formToCD").submit();
-    
+function sendNameID() {
+  document.getElementById("sid").value = sid;
+  document.getElementById("sname").value = studentName;
+  document.getElementById("formToCD").submit();
 }
