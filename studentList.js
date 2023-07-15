@@ -123,30 +123,14 @@ function addValidation() {
   }
 }//end of addValidation
 
-function deleteValidation() {
-    deleteStudent();
-    getStudent();
-    showSnackbar();
-}
-
 function AddOpenForm() {
   document.getElementById("addForm").style.display = "block";
   AddDisableButton();
 }//end of openForm
 
-function DeleteOpenForm() {
-  document.getElementById("deleteForm").style.display = "block";
-  DeleteDisableButton();
-}//end of openForm
-
 function AddCloseForm() {
   document.getElementById("addForm").style.display = "none";
   AddEnableButton()
-}//end of closeForm
-
-function DeleteCloseForm() {
-  document.getElementById("deleteForm").style.display = "none";
-  enableButton();
 }//end of closeForm
 
 function showSnackbar() {
@@ -171,14 +155,4 @@ function AddDisableButton()
 function AddEnableButton() 
 {
   document.getElementById("add_student_button").disabled = false;
-}
-
-function DeleteDisableButton() 
-{
-  document.getElementById("delete_student_button").disabled = true;
-}
-
-function DeleteEnableButton() 
-{
-  document.getElementById("delete_student_button").disabled = false;
 }
