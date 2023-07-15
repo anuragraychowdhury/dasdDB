@@ -7,29 +7,39 @@
 </head>
 
 <body>
-<button id="generateReportButton" onclick="sendNameID()">Generate Report</button>
-<button class="add-skill-button" onclick="addSkill()">Add Skill</button>
-<h1 class="custom-font"> Grading Key</h1>
-<h2 class="custom-font">Student Name: <span id="studentNameHTML"></span></h2>
-<h2>Date: <input type="date" id="gradingDate" onchange='dateRefresh()'></h2>
+    <button id="generateReportButton" onclick="sendNameID()">Generate Report</button>
+    <button class="add-skill-button" onclick="openAddForm()">Add Skill</button>
+    <h1 class="custom-font"> Grading Key</h1>
+    <h2 class="custom-font">Student Name: <span id="studentNameHTML"></span></h2>
+    <h2>Date: <input type="date" id="gradingDate" onchange='dateRefresh()'></h2>
 
-<div id="buttonContainer">
-    <!-- Buttons will be dynamically created here -->
-</div>
+    <div id="buttonContainer">
+        <!-- Buttons will be dynamically created here -->
+    </div>
 
-<div id="snackBarContainer"></div>
+    <div id="snackBarContainer"></div>
 
-<div>
-    <br><button class="save-changes" onclick="saveChanges()">Save Changes</button></br>
-</div>
+    <div>
+        <br><button class="save-changes" onclick="saveChanges()">Save Changes</button></br>
+    </div>
+    
+    <form id="addSkillForm" class="form-popup">
+        <h1>Add Skill</h1>
+        <label for="skillName"><b>Skill Name</b></label>
+        <input type="text" placeholder="Enter skill name" id="AddSkill" required>
+        <label for="category"><b>Category</b></label>
+        <input type="text" placeholder="Enter category name" id="AddCategory" required>
+        <button type="button" class="btn" onclick="addSkillValidation()">Add Skill</button>
+        <button type="button" class="btn cancel" onclick="closeAddForm()">Cancel</button>
+    </form>
 
-<form action="contextualData.html" method="get" id="formToCD"> 
-<input type="hidden" id="sid" name="studentID" />
-<input type="hidden" id="sname" name="studentName" />
-</form>
+    <form action="contextualData.html" method="get" id="formToCD">
+        <input type="hidden" id="sid" name="studentID" />
+        <input type="hidden" id="sname" name="studentName" />
+    </form>
 
-<script src="gradingKey.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/js/all.min.js"></script>
+    <script src="gradingKey.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/js/all.min.js"></script>
 </body>
 
 </html>
