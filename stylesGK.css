@@ -69,20 +69,22 @@
   align-items: flex-end;
 }
 
-/* Adjusted styles for generateReportButton and addSkillButton */
-#generateReportButton,
-.add-skill-button {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  background-color: yellow;
-  color: black;
-  border: none;
-  padding: 14px 28px;
-  font-size: 20px;
-  cursor: pointer;
-  font-family: "georgia-font";
-  border-radius: 10px;
+#generateReportButton {
+    color: #f2f2f2; /* Off-white */
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    position: fixed; /* Added */
+    top: 10px; /* Added */
+    right: 10px; /* Added */
+    width: 150px;
+    border-radius: 10px;
+    background-color: #010142; /* Dark navy */
+}
+
+#generateReportButton:hover {
+  background-color: #01117f; /* Darker shade of navy blue on hover */
 }
 
 .add-skill-button {
@@ -113,4 +115,69 @@ body {
 .delete-icon {
   margin-left: auto;
   color: red;
+}
+
+.add-skill-button {
+  color: #f2f2f2; /* Off-white */
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed; /* Added */
+  top: 60px; /* Updated position */
+  right: 10px; /* Added */
+  width: 150px;
+  border-radius: 10px;
+  background-color: #010142; /* Dark navy */ 
+}
+
+.add-skill-button:hover {
+  background-color: #01117f; /* Darker shade of navy blue on hover */
+}
+
+/* Add Skill form styles */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 1px solid #ccc;
+  z-index: 9;
+  background-color: #f1f1f1;
+  padding: 15px;
+  width: 300px;
+  max-width: 90%;
+}
+
+.form-popup h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.form-popup label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-popup input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-popup button {
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+}
+
+.form-popup .cancel {
+  background-color: #ccc;
 }
