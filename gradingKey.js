@@ -33,18 +33,20 @@ function getCurrentDate() {
 //----------------------------------------------------------------------------------------------------------
 // Make an AJAX request to fetch the button data
 function loadButtons() {
-    var buttonContainer = document.getElementById("buttonContainer");
-    if (buttonContainer.innerHTML != ""){
-        buttonContainer.innerHTML ="";
-    }
+  var buttonContainer = document.getElementById("buttonContainer");
+  if (buttonContainer.innerHTML != "") {
+    buttonContainer.innerHTML = "";
+  }
+
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4 && xhr.status === 200) {
       var buttonData = JSON.parse(xhr.responseText);
-      createButtons(buttonData);
+      var absentButton = document.querySelector('.absent-button');
+      createButtons(buttonData, absentButton.classList.contains('clicked')); // Pass the 'absentClicked' value
     }
   };
-  xhr.open("GET", "getGradingButtons.php?grading_sid="+sid+"&grading_date=" + date, true);
+  xhr.open("GET", "getGradingButtons.php?grading_sid=" + sid + "&grading_date=" + date, true);
   xhr.send();
 }
 
@@ -54,7 +56,15 @@ function createButtons(data) {
   var categoryContainer = {};
   var categories = [];
 
-  buttonData.forEach(function(button) {
+  var absentButtonClicked = false; // Flag to track if the "Manage Absent" button is clicked
+
+  // Check if the "Manage Absent" button is clicked
+  var absentButton = document.querySelector('.absent-button');
+  if (absentButton.classList.contains('clicked')) {
+    absentButtonClicked = true;
+  }
+
+  buttonData.forEach(function (button) {
     var skillId = button[0];
     var skillName = button[1];
     var category = button[2].trim();
@@ -73,18 +83,27 @@ function createButtons(data) {
       buttonElement.style.backgroundColor = "lightgreen";
     }
 
-    buttonElement.addEventListener("click", function() {
-      if (this.style.backgroundColor === "lightgreen") {
-        this.style.backgroundColor = "lightgray";
-      } else {
-        this.style.backgroundColor = "lightgreen";
+    if (absentButtonClicked) {
+      buttonElement.disabled = true; // Disable buttons if "Manage Absent" is clicked
+    } else {
+      buttonElement.disabled = false; // Enable buttons if "Manage Absent" is not clicked
+    }
+
+    buttonElement.addEventListener("click", function () {
+      if (!absentButtonClicked) {
+        // Only allow button click if "Manage Absent" is not clicked
+        if (this.style.backgroundColor === "lightgreen") {
+          this.style.backgroundColor = "lightgray";
+        } else {
+          this.style.backgroundColor = "lightgreen";
+        }
       }
     });
 
     categoryContainer[category].appendChild(buttonElement);
   });
 
-  categories.forEach(function(category) {
+  categories.forEach(function (category) {
     var categoryDiv = categoryContainer[category];
 
     var categoryHeading = document.createElement("h3");
@@ -95,6 +114,7 @@ function createButtons(data) {
     buttonContainer.appendChild(categoryDiv);
   });
 }
+
 //----------------------------------------------------------------------------------------------------------
 function saveChanges() {
   var sid = new URLSearchParams(window.location.search).get('studentID');
@@ -329,9 +349,8 @@ function markAbsent() {
       if (xhr.status === 200) {
         var response = xhr.responseText;
         console.log(response); // Log the response for debugging
-        // Show a snackbar or display a message to indicate success
 
-        // After marking as absent, update the button color immediately
+        // After marking or unmarking as absent, update the button color and enable/disable other buttons
         checkAbsent();
       } else {
         var error = "Error marking student as absent: " + xhr.statusText;
@@ -360,12 +379,32 @@ function checkAbsent() {
         // Button should remain green
         var absentButton = document.querySelector('.absent-button');
         absentButton.classList.add('clicked');
+
+        // Disable other buttons when "Manage Absent" is clicked
+        disableOtherButtons();
       } else {
         // Button should be blue
         var absentButton = document.querySelector('.absent-button');
         absentButton.classList.remove('clicked');
+
+        // Enable other buttons when "Manage Absent" is not clicked
+        enableOtherButtons();
       }
     }
   };
   xhr.send();
+}
+
+function disableOtherButtons() {
+  var buttons = document.querySelectorAll('#buttonContainer button:not(.absent-button)');
+  buttons.forEach(function(button) {
+    button.disabled = true;
+  });
+}
+
+function enableOtherButtons() {
+  var buttons = document.querySelectorAll('#buttonContainer button:not(.absent-button)');
+  buttons.forEach(function(button) {
+    button.disabled = false;
+  });
 }
