@@ -9,6 +9,10 @@
 <body>
     <button id="generateReportButton" onclick="sendNameID()">Generate Report</button>
     <button class="add-skill-button" onclick="openAddForm()">Add Skill</button>
+    <!-- New buttons with updated classes -->
+    <button class="delete-skill-button" onclick="openDeleteForm()">Delete Skill</button>
+    <button class="delete-category-button" onclick="deleteCategory()">Delete Category</button>
+    
     <h1 class="custom-font"> Grading Key</h1>
     <h2 class="custom-font">Student Name: <span id="studentNameHTML"></span></h2>
     <h2>Date: <input type="date" id="gradingDate" onchange='dateRefresh()'></h2>
@@ -31,6 +35,14 @@
         <input type="text" placeholder="Enter category name" id="AddCategory" required>
         <button type="button" class="btn" onclick="addSkillValidation()">Add Skill</button>
         <button type="button" class="btn cancel" onclick="closeAddForm()">Cancel</button>
+    </form>
+    
+    <form id="deleteSkillForm" class="form-popup">
+        <h1>Delete Skill</h1>
+        <label for="skillToDelete"><b>Skill Name to Delete</b></label>
+        <input type="text" placeholder="Enter skill name to delete" id="DeleteSkillName" required>
+        <button type="button" class="btn" onclick="deleteSkillValidation()">Delete Skill</button>
+        <button type="button" class="btn cancel" onclick="closeDeleteForm()">Cancel</button>
     </form>
 
     <form action="contextualData.html" method="get" id="formToCD">
