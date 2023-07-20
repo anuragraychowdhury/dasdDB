@@ -1,19 +1,43 @@
+/* Global styles */
+body {
+  background-color: #eaeaea;
+  color: #131b75;
+}
+
+.georgia-font {
+  font-family: "Georgia", serif;
+}
+
+/* Common styles for buttons */
+.button {
+  color: #f2f2f2; /* Off-white */
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  border-radius: 10px;
+  font-family: "georgia-font";
+}
+
+.button:hover {
+  background-color: #01117f; /* Darker shade of navy blue on hover */
+}
+
+/* Main content styles */
 .save-changes {
   width: 200px;
   height: 60px;
   font-size: 25px;
-  font-family: "georgia-font";
 }
 
 .header-font {
   font-size: 30px;
-  font-family: "georgia-font";
   background-color: yellow;
   border-radius: 10px;
 }
 
 .block {
-  position: relative; /* Added */
+  position: relative;
   display: flex;
   align-items: center;
   width: 100%;
@@ -34,11 +58,12 @@
 }
 
 .trashcan-icon {
-  position: absolute; /* Added */
-  right: 10px; /* Added */
-  color: red; /* Added */
+  position: absolute;
+  right: 10px;
+  color: red;
 }
 
+/* Snackbar styles */
 .snack-bar {
   position: fixed;
   bottom: 20px;
@@ -58,7 +83,7 @@
   opacity: 1;
 }
 
-/* Adjusted styles for snackBarContainer */
+/* Snackbar container styles */
 #snackBarContainer {
   position: fixed;
   bottom: 0;
@@ -69,30 +94,24 @@
   align-items: flex-end;
 }
 
+/* Button to generate report */
 #generateReportButton {
-    color: #f2f2f2; /* Off-white */
-    padding: 16px 20px;
-    border: none;
-    cursor: pointer;
-    opacity: 0.8;
-    position: fixed; /* Added */
-    top: 10px; /* Added */
-    right: 10px; /* Added */
-    width: 150px;
-    border-radius: 10px;
-    background-color: #010142; /* Dark navy */
+  color: #f2f2f2; /* Off-white */
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  width: 150px;
+  border-radius: 10px;
+  background-color: #010142; /* Dark navy */
 }
 
 #generateReportButton:hover {
   background-color: #01117f; /* Darker shade of navy blue on hover */
 }
 
-.add-skill-button {
-  top: 80px;
-}
-
 /* Light mode styles */
-body {
+.light-mode body {
   background-color: #eaeaea;
   color: #131b75;
 }
@@ -123,15 +142,30 @@ body {
   border: none;
   cursor: pointer;
   opacity: 0.8;
-  position: fixed; /* Added */
-  top: 60px; /* Updated position */
-  right: 10px; /* Added */
   width: 150px;
   border-radius: 10px;
   background-color: #010142; /* Dark navy */ 
 }
 
 .add-skill-button:hover {
+  background-color: #01117f; /* Darker shade of navy blue on hover */
+}
+
+.delete-skill-button,
+.delete-category-button {
+  color: #f2f2f2; /* Off-white */
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  width: 150px;
+  border-radius: 10px;
+  background-color: #010142; /* Dark navy */
+  margin-right: 10px; /* Added to create some space between buttons */
+}
+
+.delete-skill-button:hover,
+.delete-category-button:hover {
   background-color: #01117f; /* Darker shade of navy blue on hover */
 }
 
