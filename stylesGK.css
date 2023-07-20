@@ -183,6 +183,22 @@ body {
   max-width: 90%;
 }
 
+.absent-button {
+  color: #f2f2f2; /* Off-white */
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  width: 150px;
+  border-radius: 10px;
+  background-color: #910101; /* Dark red */
+}
+
+.absent-button:hover {
+  background-color: #b70000; /* Darker shade of red on hover */
+}
+
+
 .form-popup h1 {
   font-size: 24px;
   margin-bottom: 10px;
@@ -215,3 +231,24 @@ body {
 .form-popup .cancel {
   background-color: #ccc;
 }
+
+/* Absent button styles */
+.absent-button {
+  color: #f2f2f2; /* Off-white */
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  width: 150px;
+  border-radius: 10px;
+  background-color: #010142; /* Dark navy */
+}
+
+.absent-button:hover {
+  background-color: #01117f; /* Darker shade of navy blue on hover */
+}
+
+.absent-button.clicked {
+  background-color: #00b700; /* Green when clicked */
+}
+
