@@ -2,9 +2,7 @@
 include 'dbConnection.php';
 $studName = $_POST['AddStudentName'];
 echo $studName;
-$sql = "INSERT INTO studentKey(student_name)
-VALUES ('$studName')"; 
-//checks AddStudentName value from index.html (html part for add student) and posts it
+$sql = "INSERT INTO studentKey(student_name) VALUES ('$studName')"; 
 
 if ($conn->query($sql) === TRUE) 
 {
