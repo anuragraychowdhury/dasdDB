@@ -3,6 +3,7 @@ gradingDate = document.getElementById("gradingDate")
 var date = gradingDate.value;
 const sid = new URLSearchParams(window.location.search).get('studentID');
 loadButtons();
+checkAbsent();
 // window.addEventListener("load", loadButtons);
 
 const studentName = new URLSearchParams(window.location.search).get('studentName');
@@ -22,6 +23,7 @@ function dateRefresh(){
     if(date != document.getElementById("gradingDate").value){
        date = document.getElementById("gradingDate").value;
        loadButtons();
+       checkAbsent()
     }
 }
 function getCurrentDate() {
@@ -94,7 +96,6 @@ function createButtons(data) {
   });
 }
 //----------------------------------------------------------------------------------------------------------
-
 function saveChanges() {
   var sid = new URLSearchParams(window.location.search).get('studentID');
   var date = document.getElementById('gradingDate').value;
@@ -102,6 +103,7 @@ function saveChanges() {
 
   var buttonContainer = document.getElementById('buttonContainer');
   var buttons = buttonContainer.getElementsByTagName('button');
+
   for (var i = 0; i < buttons.length; i++) {
     var button = buttons[i];
     var skillId = buttonData[i][0];
@@ -109,7 +111,7 @@ function saveChanges() {
     // Check if the button is selected
     if (button.style.backgroundColor === 'lightgreen') {
       // Add the skillId to the skills array
-      skills.push(skillId);
+      skills.push(skillId);// At least one button is clicked
     }
   }
 
@@ -314,3 +316,56 @@ function enableDeleteCategoryButton() {
   document.getElementById("delete-category-button").disabled = false;
 }
 
+//----------------------------------------------------------------------------------------------------------
+function markAbsent() {
+  var sid = new URLSearchParams(window.location.search).get('studentID');
+  var date = document.getElementById('gradingDate').value;
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'markAbsent.php', true);
+  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        var response = xhr.responseText;
+        console.log(response); // Log the response for debugging
+        // Show a snackbar or display a message to indicate success
+
+        // After marking as absent, update the button color immediately
+        checkAbsent();
+      } else {
+        var error = "Error marking student as absent: " + xhr.statusText;
+        console.error(error);
+        // Show a snackbar or display an error message
+      }
+    }
+  };
+
+  var params = 'grading_sid=' + encodeURIComponent(sid) +
+    '&grading_date=' + encodeURIComponent(date);
+
+  xhr.send(params);
+}
+
+function checkAbsent() {
+  var sid = new URLSearchParams(window.location.search).get('studentID');
+  var date = document.getElementById('gradingDate').value;
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'checkAbsent.php?grading_sid=' + encodeURIComponent(sid) + '&grading_date=' + encodeURIComponent(date), true);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      var response = xhr.responseText;
+      if (response === '1') {
+        // Button should remain green
+        var absentButton = document.querySelector('.absent-button');
+        absentButton.classList.add('clicked');
+      } else {
+        // Button should be blue
+        var absentButton = document.querySelector('.absent-button');
+        absentButton.classList.remove('clicked');
+      }
+    }
+  };
+  xhr.send();
+}
