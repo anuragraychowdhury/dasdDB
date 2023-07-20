@@ -12,6 +12,7 @@
     <!-- New buttons with updated classes -->
     <button class="delete-skill-button" onclick="openDeleteForm()">Delete Skill</button>
     <button class="delete-category-button" onclick="openDeleteCatForm()">Delete Category</button>
+    <button class="absent-button" onclick="markAbsent()">Mark Absent</button>
     
     <h1 class="custom-font"> Grading Key</h1>
     <h2 class="custom-font">Student Name: <span id="studentNameHTML"></span></h2>
