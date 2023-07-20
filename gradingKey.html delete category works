@@ -11,7 +11,7 @@
     <button class="add-skill-button" onclick="openAddForm()">Add Skill</button>
     <!-- New buttons with updated classes -->
     <button class="delete-skill-button" onclick="openDeleteForm()">Delete Skill</button>
-    <button class="delete-category-button" onclick="deleteCategory()">Delete Category</button>
+    <button class="delete-category-button" onclick="openDeleteCatForm()">Delete Category</button>
     
     <h1 class="custom-font"> Grading Key</h1>
     <h2 class="custom-font">Student Name: <span id="studentNameHTML"></span></h2>
@@ -43,6 +43,14 @@
         <input type="text" placeholder="Enter skill name to delete" id="DeleteSkillName" required>
         <button type="button" class="btn" onclick="deleteSkillValidation()">Delete Skill</button>
         <button type="button" class="btn cancel" onclick="closeDeleteForm()">Cancel</button>
+    </form>
+    
+    <form id="deleteCategoryForm" class="form-popup">
+        <h1>Delete Category</h1>
+        <label for="categoryToDelete"><b>Category Name to Delete</b></label>
+        <input type="text" placeholder="Enter category name to delete" id="DeleteCategoryName" required>
+        <button type="button" class="btn" onclick="deleteCategoryValidation()">Delete Category</button>
+        <button type="button" class="btn cancel" onclick="closeDeleteCatForm()">Cancel</button>
     </form>
 
     <form action="contextualData.html" method="get" id="formToCD">
