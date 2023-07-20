@@ -210,3 +210,54 @@ function disableAddSkillButton() {
 function enableAddSkillButton() {
   document.getElementById("add-skill-button").disabled = false;
 }
+
+function deleteSkill() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("POST", "deleteSkill.php", true);
+  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(xhttp.responseText);
+    }
+  };
+
+  var skillToDelete = document.getElementById("DeleteSkillName").value; // Assuming skill name is provided in the input field
+  var params = 'SkillName=' + encodeURIComponent(skillToDelete); // Modify the parameter name to match your server-side code
+  xhttp.send(params);
+}
+
+function openDeleteForm() {
+  document.getElementById("deleteSkillForm").style.display = "block";
+}
+
+function closeDeleteForm() {
+  document.getElementById("deleteSkillForm").style.display = "none";
+}
+
+function confirmDeleteSkill() {
+  var confirmDelete = confirm("Are you sure you want to delete this skill?");
+  if (confirmDelete) {
+    deleteSkill();
+    showSnackBar("Skill deleted!"); // Changed function name to showSnackBar
+    closeDeleteForm(); // Close the delete form after confirmation
+  }
+}
+
+function deleteSkillValidation() {
+  var skillToDelete = document.getElementById("DeleteSkillName").value;
+
+  if (skillToDelete === "") {
+    confirmAction(); // Show confirmation for empty skill name
+  } else {
+    confirmDeleteSkill(); // Ask for confirmation to delete the skill
+  }
+}
+
+function disableDeleteSkillButton() {
+  document.getElementById("delete-skill-button").disabled = true;
+}
+
+function enableDeleteSkillButton() {
+  document.getElementById("delete-skill-button").disabled = false;
+}
