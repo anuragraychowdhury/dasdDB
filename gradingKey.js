@@ -28,7 +28,7 @@ function getCurrentDate() {
     const currentDate = new Date().toISOString().split('T')[0];
     document.getElementById("gradingDate").value = currentDate;
 }
-
+//----------------------------------------------------------------------------------------------------------
 // Make an AJAX request to fetch the button data
 function loadButtons() {
     var buttonContainer = document.getElementById("buttonContainer");
@@ -93,7 +93,7 @@ function createButtons(data) {
     buttonContainer.appendChild(categoryDiv);
   });
 }
-
+//----------------------------------------------------------------------------------------------------------
 
 function saveChanges() {
   var sid = new URLSearchParams(window.location.search).get('studentID');
@@ -133,7 +133,7 @@ function saveChanges() {
 
   xhr.send(params);
 }
-
+//----------------------------------------------------------------------------------------------------------
 function showSnackBar(message) {
   // Create a snack bar element
   var snackBar = document.createElement('div');
@@ -164,7 +164,7 @@ function sendNameID(){
         document.getElementById("formToCD").submit();
     
 }
-
+//----------------------------------------------------------------------------------------------------------
 function addSkill() {
   var xhttp = new XMLHttpRequest();
   xhttp.open("POST", "addSkill.php", true);
@@ -210,7 +210,7 @@ function disableAddSkillButton() {
 function enableAddSkillButton() {
   document.getElementById("add-skill-button").disabled = false;
 }
-
+//----------------------------------------------------------------------------------------------------------
 function deleteSkill() {
   var xhttp = new XMLHttpRequest();
   xhttp.open("POST", "deleteSkill.php", true);
@@ -261,3 +261,56 @@ function disableDeleteSkillButton() {
 function enableDeleteSkillButton() {
   document.getElementById("delete-skill-button").disabled = false;
 }
+//----------------------------------------------------------------------------------------------------------
+
+function deleteCategory() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("POST", "deleteCategory.php", true);
+  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(xhttp.responseText);
+    }
+  };
+
+  var categoryToDelete = document.getElementById("DeleteCategoryName").value; // Assuming category name is provided in the input field
+  var params = 'CategoryName=' + encodeURIComponent(categoryToDelete); // Modify the parameter name to match your server-side code
+  xhttp.send(params);
+}
+
+function openDeleteCatForm() {
+  document.getElementById("deleteCategoryForm").style.display = "block";
+}
+
+function closeDeleteCatForm() {
+  document.getElementById("deleteCategoryForm").style.display = "none";
+}
+
+function confirmDeleteCategory() {
+  var confirmDelete = confirm("Are you sure you want to delete this category?");
+  if (confirmDelete) {
+    deleteCategory();
+    showSnackBar("Category deleted!"); // Changed function name to showSnackBar
+    closeDeleteCatForm(); // Close the delete form after confirmation
+  }
+}
+
+function deleteCategoryValidation() {
+  var categoryToDelete = document.getElementById("DeleteCategoryName").value;
+
+  if (categoryToDelete === "") {
+    confirmAction(); // Show confirmation for an empty category name
+  } else {
+    confirmDeleteCategory(); // Ask for confirmation to delete the category
+  }
+}
+
+function disableDeleteCategoryButton() {
+  document.getElementById("delete-category-button").disabled = true;
+}
+
+function enableDeleteCategoryButton() {
+  document.getElementById("delete-category-button").disabled = false;
+}
+
