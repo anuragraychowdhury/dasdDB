@@ -30,16 +30,5 @@ $(function() {
           updateDuration();
         }
       });
-
-      function updateDuration() {
-         
-          
-        var startDate = $("#start-date").datepicker("getDate");
-        var endDate = $("#end-date").datepicker("getDate");
-        if (startDate && endDate) {
-          var durationInDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
-          $("#duration").val(durationInDays + " days");
-        }
-        
-      }
+      
     });
