@@ -1,5 +1,6 @@
 <?php
-include 'dbConnection.php';
+include 'dbConnection.php'; // Assuming you have a database connection file
+
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
@@ -17,9 +18,6 @@ foreach ($skill_arr as $skill) {
     $sql = "INSERT INTO `gradingTable` (`student_id`, `date`, `skilltag`, `grade`) VALUES (" . $sid .", '". $date."', '" . $skill. "', '1');";
     $result = $conn->query($sql);
 }
-echo "<pre>";
-print_r($skills);
-echo "</pre>";
-echo "<div>Data was inserted.</div>";
+
+echo "Changes saved";
 ?>
-<?php
