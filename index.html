@@ -19,9 +19,13 @@
     <input type="hidden" id="sname" name="studentName" />
   </form>
 
-  <div style="text-align: right;">
+<div style="text-align: right;">
+  <div class="button-container">
     <button class="open-button btn" id="add_student_button" onclick="AddOpenForm()">Add Student</button>
+    <!-- Button to open the pop-up form for marking period start and end dates -->
+    <button class="open-button btn" onclick="OpenMarkingPeriodForm()">Add Marking Period</button>
   </div>
+</div>
 
   <div class="form-popup" id="addForm">
     <h1>Add Student</h1>
@@ -30,6 +34,44 @@
     <button type="button" class="btn" onclick="addValidation()">Add Student</button>
     <div id="snackbar">Student added!</div>
     <button type="button" class="btn cancel" onclick="AddCloseForm()">Cancel</button>
+  </div>
+
+  <div class="form-popup" id="markingPeriodForm">
+    <h1>Add Marking Period</h1>
+    <!-- Marking Period 1 -->
+    <label for="MP1"><b>Marking Period 1</b></label>
+    <input type="text" placeholder="MP 1" id="MP1" required>
+    <label for="StartDate1"><b>Start Date</b></label>
+    <input type="date" id="StartDate1" required>
+    <label for="EndDate1"><b>End Date</b></label>
+    <input type="date" id="EndDate1" required>
+
+    <!-- Marking Period 2 -->
+    <label for="MP2"><b>Marking Period 2</b></label>
+    <input type="text" placeholder="MP 2" id="MP2" required>
+    <label for="StartDate2"><b>Start Date</b></label>
+    <input type="date" id="StartDate2" required>
+    <label for="EndDate2"><b>End Date</b></label>
+    <input type="date" id="EndDate2" required>
+
+    <!-- Marking Period 3 -->
+    <label for="MP3"><b>Marking Period 3</b></label>
+    <input type="text" placeholder="MP 3" id="MP3" required>
+    <label for="StartDate3"><b>Start Date</b></label>
+    <input type="date" id="StartDate3" required>
+    <label for="EndDate3"><b>End Date</b></label>
+    <input type="date" id="EndDate3" required>
+
+    <!-- Marking Period 4 -->
+    <label for="MP4"><b>Marking Period 4</b></label>
+    <input type="text" placeholder="MP 4" id="MP4" required>
+    <label for="StartDate4"><b>Start Date</b></label>
+    <input type="date" id="StartDate4" required>
+    <label for="EndDate4"><b>End Date</b></label>
+    <input type="date" id="EndDate4" required>
+
+    <button type="button" class="btn" onclick="addMarkingPeriod()">Add Marking Period</button>
+    <button type="button" class="btn cancel" onclick="CloseMarkingPeriodForm()">Cancel</button>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/js/all.min.js"></script>
