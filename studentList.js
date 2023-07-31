@@ -156,3 +156,83 @@ function AddEnableButton()
 {
   document.getElementById("add_student_button").disabled = false;
 }
+
+// Function to open the form for adding marking period start and end dates
+function OpenMarkingPeriodForm() {
+  document.getElementById("markingPeriodForm").style.display = "block";
+}
+
+// Function to close the form for adding marking period start and end dates
+function CloseMarkingPeriodForm() {
+  document.getElementById("markingPeriodForm").style.display = "none";
+}
+
+// Function to handle adding a marking period
+function AddMarkingPeriod() {
+  // Get the marking period data from the form
+  const startDate = document.getElementById("StartDate").value;
+  const endDate = document.getElementById("EndDate").value;
+
+  // You can perform additional validation here if needed
+
+  // Submit the form or handle the data as needed (e.g., send to the server)
+  // For demonstration purposes, we'll just display an alert with the data
+  alert(`Marking Period:\nStart Date: ${startDate}\nEnd Date: ${endDate}`);
+
+  // Close the form after submitting
+  CloseMarkingPeriodForm();
+}
+
+function addMarkingPeriod() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("POST", "addMpData.php", true);
+  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4) {
+      if (this.status == 200) {
+        console.log(xhttp.responseText);
+        showSnackbar("MP data submitted!");
+      } else {
+        console.error("Error: Unable to submit Marking Period data.");
+      }
+    }
+  };
+
+  // Get the values from the form for each Marking Period
+  var mp1 = encodeURIComponent(document.getElementById("MP1").value);
+  var startDate1 = encodeURIComponent(document.getElementById("StartDate1").value);
+  var endDate1 = encodeURIComponent(document.getElementById("EndDate1").value);
+
+  var mp2 = encodeURIComponent(document.getElementById("MP2").value);
+  var startDate2 = encodeURIComponent(document.getElementById("StartDate2").value);
+  var endDate2 = encodeURIComponent(document.getElementById("EndDate2").value);
+  
+  var mp3 = encodeURIComponent(document.getElementById("MP3").value);
+  var startDate3 = encodeURIComponent(document.getElementById("StartDate3").value);
+  var endDate3 = encodeURIComponent(document.getElementById("EndDate3").value);
+  
+  var mp4 = encodeURIComponent(document.getElementById("MP4").value);
+  var startDate4 = encodeURIComponent(document.getElementById("StartDate4").value);
+  var endDate4 = encodeURIComponent(document.getElementById("EndDate4").value);
+
+var params =
+    'MP1=' + encodeURIComponent(document.getElementById("MP1").value) +
+    '&StartDate1=' + encodeURIComponent(document.getElementById("StartDate1").value) +
+    '&EndDate1=' + encodeURIComponent(document.getElementById("EndDate1").value) +
+    
+    '&MP2=' + encodeURIComponent(document.getElementById("MP2").value) +
+    '&StartDate2=' + encodeURIComponent(document.getElementById("StartDate2").value) +
+    '&EndDate2=' + encodeURIComponent(document.getElementById("EndDate2").value) +
+    
+    '&MP3=' + encodeURIComponent(document.getElementById("MP3").value) +
+    '&StartDate3=' + encodeURIComponent(document.getElementById("StartDate3").value) +
+    '&EndDate3=' + encodeURIComponent(document.getElementById("EndDate3").value) +
+    
+    '&MP4=' + encodeURIComponent(document.getElementById("MP4").value) +
+    '&StartDate4=' + encodeURIComponent(document.getElementById("StartDate4").value) +
+    '&EndDate4=' + encodeURIComponent(document.getElementById("EndDate4").value);
+
+  xhttp.send(params);
+}
+
