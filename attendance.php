@@ -1,29 +1,37 @@
 <?php
 include 'dbConnection.php';
+$sid = $_GET['student_id'];
 
-$startDate = $_GET['start_date'];
-$endDate = $_GET['end_date'];
-$studentID = $_GET['student_id'];
+// Fetch the marking periods start and end dates from the database
+$sqlMarkingPeriods = "SELECT markingPeriod, MPstartDate, MPendDate FROM mpData";
+$resultMarkingPeriods = $conn->query($sqlMarkingPeriods);
 
-// Use prepared statement to prevent SQL injection
-$stmt = $conn->prepare("SELECT student_id, COUNT(DISTINCT date) AS total_unique_dates, SUM(CASE WHEN skilltag = 0 THEN 1 ELSE 0 END) AS total_dates_with_skilltag_0 FROM gradingTable WHERE student_id = ? AND date >= ? AND date <= ? GROUP BY student_id");
+// Array to hold the result data for all marking periods
+$allMarkingPeriodsData = array();
 
-// Bind the parameters
-$stmt->bind_param("iss", $studentID, $startDate, $endDate);
+while ($rowMarkingPeriod = $resultMarkingPeriods->fetch_assoc()) {
+    $markingPeriod = $rowMarkingPeriod['markingPeriod'];
+    $startDate = $rowMarkingPeriod['MPstartDate'];
+    $endDate = $rowMarkingPeriod['MPendDate'];
 
-// Execute the query
-$stmt->execute();
+    // Query to get attendance data for the current marking period
+    $sql = "SELECT COUNT(DISTINCT date) AS total_unique_dates, SUM(CASE WHEN skilltag = 0 THEN 1 ELSE 0 END) AS total_dates_with_skilltag_0 
+            FROM gradingTable 
+            WHERE student_id = $sid 
+            AND date >= '$startDate' 
+            AND date <= '$endDate'";
 
-// Get the result
-$result = $stmt->get_result();
+    $result = $conn->query($sql);
 
-// Fetch the data into an associative array
-$data = $result->fetch_all(MYSQLI_ASSOC);
+    // Fetch the attendance data for the current marking period and store it in an array
+    $currentMarkingPeriodData = array();
+    while ($row = $result->fetch_assoc()) {
+        $currentMarkingPeriodData[] = $row;
+    }
 
-// Close the statement and connection
-$stmt->close();
-$conn->close();
+    // Add the data for the current marking period to the array of all marking periods' data
+    $allMarkingPeriodsData[$markingPeriod] = $currentMarkingPeriodData;
+}
 
-// Output the result as JSON
-echo json_encode($data);
+echo json_encode($allMarkingPeriodsData);
 ?>
