@@ -36,7 +36,7 @@ function formatDate(dateString) {
   return `${year}-${month}-${day}`;
 }
 
-gradingDates = 0
+let gradingDates = {}; // Global variable for overall gradingDates
 
 function attendance() {
   const xhr = new XMLHttpRequest();
@@ -49,15 +49,19 @@ function attendance() {
         var markingPeriodData = attendanceData[mp];
         var totalDates = markingPeriodData[0].total_unique_dates;
         var absentDates = markingPeriodData[0].total_dates_with_skilltag_0;
-        var gradingDates = totalDates - absentDates; // Calculate the gradingDates value
+        var mpGradingDates = totalDates - absentDates; // Use a different variable for local gradingDates
+        gradingDates[mp] = mpGradingDates; // Store gradingDates for each marking period
         console.log('Marking Period:', mp);
         console.log('Total Unique Dates:', totalDates);
         console.log('Total Dates with Skilltag 0:', absentDates);
-        console.log('Total Grading Dates:', gradingDates);
+        console.log('Total Grading Dates:', mpGradingDates);
 
         // Call the loadReport function with the gradingDates value for each marking period
-        loadReport(gradingDates);
+        loadReport(mpGradingDates, mp);
       });
+
+      // Now that attendance data is processed for all marking periods, call createTable
+      createTable(attendanceData);
     }
   };
 
@@ -67,7 +71,6 @@ function attendance() {
   );
   xhr.send();
 }
-
 
 function createTable(data) {
   var grContainer = document.getElementById('grContainer');
@@ -92,7 +95,7 @@ function createTable(data) {
   Object.keys(categories).forEach(function (category) {
     var table = document.createElement('table');
     table.className = 'category-table'; // Apply the class for spacing
-    
+
     var headerRow = table.insertRow();
     var cellCategory = headerRow.insertCell();
     cellCategory.innerHTML = category;
@@ -114,7 +117,9 @@ function createTable(data) {
       var grades = skills[skill];
       Object.keys(data).forEach(function (mp, index) {
         var cellGrade = skillRow.insertCell();
-        cellGrade.innerHTML = grades[index] || 'N/A';
+        // Use gradingDates[mp] for the current marking period
+        var fraction = grades[index] + '/' + gradingDates[mp];
+        cellGrade.innerHTML = fraction || 'N/A';
       });
     });
 
@@ -124,83 +129,14 @@ function createTable(data) {
 
 
 
-// function createTable(array, gradingDates) {
-//   var table;
-//   var grContainer = document.getElementById('grContainer');
-
-//   var categoryContainer = {};
-//   var categories = [];
-  
-//   var leftTotal = 0;
-//   var rightTotal = 0;
-//   var toggle = -1;
-
-//   for (let i = 0; i < array.length; ++i) {
-//     var skill = array[i][0];
-//     var category = array[i][1].trim();
-//     var totalGrade = array[i][2];
-
-//     if (!categoryContainer.hasOwnProperty(category)) {
-        
-//     if (toggle == 0){
-        
-//         cell2.innerHTML +=  ': ' + leftTotal + '/' + rightTotal;
-//         leftTotal = 0;
-//         rightTotal = 0;
-        
-//     }else{
-//         toggle = 0;
-//     }
-//       console.log(leftTotal + '/' + rightTotal);
-//       categoryContainer[category] = document.createElement('div');
-//       categories.push(category);
-//       table = document.createElement('table');
-//       var row = table.insertRow();
-//       var cell1 = row.insertCell(0);
-//       var cell2 = row.insertCell(1);
-//       cell1.innerHTML = category;
-//       cell2.innerHTML = 'Total Grade';
-//     }
-
-//     row = table.insertRow();
-//     var cell1_1 = row.insertCell(0);
-//     var cell2_1 = row.insertCell(1);
-//     cell1_1.innerHTML = skill;
-    
-//     // Calculate the fraction
-//     var fraction = totalGrade + '/' + gradingDates;
-//     cell2_1.innerHTML = fraction;
-    
-//     leftTotal = leftTotal + parseInt(totalGrade);
-//     rightTotal = rightTotal + gradingDates; 
-
-//     categoryContainer[category].appendChild(table);
-//   }
-  
-//   cell2.innerHTML +=  ': ' + leftTotal + '/' + rightTotal;
-//   leftTotal = 0;
-//   rightTotal = 0;
- 
-//   categories.forEach(function (category, index) {
-//     var categoryDiv = categoryContainer[category];
-
-//     if (index !== 0) {
-//       var categoryHeading = document.createElement('br');
-//       categoryDiv.insertBefore(categoryHeading, categoryDiv.firstChild);
-//     }
-
-//     grContainer.appendChild(categoryDiv);
-//   });
-// }
-
-function loadReport() {
+function loadReport(gradingDates, mp) {
   const xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
       var GRdata = JSON.parse(xhr.responseText);
 
-      // Call createTable function with gradingDates as a parameter
-      createTable(GRdata);
+      // Call createTable function with gradingDates and mp as parameters
+      createTable(GRdata, gradingDates, mp);
     }
   };
   xhr.open(
