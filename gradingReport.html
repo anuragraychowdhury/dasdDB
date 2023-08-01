@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <title>Display Student Information</title>
   <style>
     table {
@@ -51,9 +52,10 @@
       <span id="display-attendance"></span><br> <!-- New field for Attendance -->
     </fieldset>
 
-    <h2>Points Categories</h2>
+    <h2>Report</h2>
 
     <div id="grContainer"></div>
+    <canvas id="barChart" width="400" height="200"></canvas>
   </form>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
