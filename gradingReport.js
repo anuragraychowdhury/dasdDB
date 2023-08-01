@@ -91,7 +91,7 @@ function createTable(data) {
     });
   });
 
-  // Create tables for each category
+  // Calculate marking period totals and create tables for each category
   Object.keys(categories).forEach(function (category) {
     var table = document.createElement('table');
     table.className = 'category-table'; // Apply the class for spacing
@@ -100,10 +100,14 @@ function createTable(data) {
     var cellCategory = headerRow.insertCell();
     cellCategory.innerHTML = category;
 
+    var markingPeriodTotals = {}; // Store marking period totals
+
     // Add column headers for each marking period
-    Object.keys(data).forEach(function (mp, index) {
+    Object.keys(data).forEach(function (mp) {
       var cellMP = headerRow.insertCell();
       cellMP.innerHTML = 'Marking Period ' + mp;
+
+      markingPeriodTotals[mp] = 0; // Initialize marking period total to 0
     });
 
     var skills = categories[category];
@@ -113,14 +117,32 @@ function createTable(data) {
       var cellSkillName = skillRow.insertCell();
       cellSkillName.innerHTML = skill;
 
-      // Add grades for each marking period
+      // Add fractions for each marking period
       var grades = skills[skill];
       Object.keys(data).forEach(function (mp, index) {
         var cellGrade = skillRow.insertCell();
-        // Use gradingDates[mp] for the current marking period
-        var fraction = grades[index] + '/' + gradingDates[mp];
+        // Use grades for the current marking period
+        var fraction = parseInt(grades[index]) + '/' + gradingDates[mp];
         cellGrade.innerHTML = fraction || 'N/A';
+
+        // Update marking period total
+        markingPeriodTotals[mp] += parseInt(grades[index]);
       });
+    });
+
+    var totalSkills = Object.keys(skills).length; // Get the total number of skills for each category
+
+    // Add row for marking period totals
+    var totalRow = table.insertRow();
+    var cellTotalLabel = totalRow.insertCell();
+    cellTotalLabel.innerHTML = 'Marking Period Totals';
+
+    // Add marking period total values
+    Object.keys(data).forEach(function (mp) {
+      var cellTotal = totalRow.insertCell();
+      var totalGrades = markingPeriodTotals[mp]; // Get the total grades for the marking period
+      var totalFraction = totalGrades + '/' + (gradingDates[mp] * totalSkills); // Calculate the total fraction
+      cellTotal.innerHTML = totalFraction || 'N/A';
     });
 
     grContainer.appendChild(table);
