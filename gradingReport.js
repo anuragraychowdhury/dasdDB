@@ -1,4 +1,5 @@
 // Get the URL parameters
+
 const urlParams = new URLSearchParams(window.location.search);
 
 // Retrieve the input values from the URL parameters
@@ -28,14 +29,6 @@ function generateReport() {
   window.location.href = "contextualData.html?studentName=" + encodedStudentName;
 }
 
-function formatDate(dateString) {
-  const date = new Date(dateString);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
-
 let gradingDates = {}; // Global variable for overall gradingDates
 
 function attendance() {
@@ -51,10 +44,10 @@ function attendance() {
         var absentDates = markingPeriodData[0].total_dates_with_skilltag_0;
         var mpGradingDates = totalDates - absentDates; // Use a different variable for local gradingDates
         gradingDates[mp] = mpGradingDates; // Store gradingDates for each marking period
-        console.log('Marking Period:', mp);
-        console.log('Total Unique Dates:', totalDates);
-        console.log('Total Dates with Skilltag 0:', absentDates);
-        console.log('Total Grading Dates:', mpGradingDates);
+        //console.log('Marking Period:', mp);
+        //console.log('Total Unique Dates:', totalDates);
+        //console.log('Total Dates with Skilltag 0:', absentDates);
+        //console.log('Total Grading Dates:', mpGradingDates);
 
         // Call the loadReport function with the gradingDates value for each marking period
         loadReport(mpGradingDates, mp);
@@ -77,19 +70,22 @@ function createTable(data) {
   grContainer.innerHTML = ''; // Clear any existing content
 
   var categories = {}; // Object to store skills for each category
+  var markingPeriodTotalsPerCategory = []; // 2D array to store marking period totals per category
 
   // Process the data to group skills by category
-  Object.keys(data).forEach(function (mp) {
-    var markingPeriodData = data[mp];
-    markingPeriodData.forEach(function (item) {
+Object.keys(data).forEach(function (mp) {
+  var markingPeriodData = data[mp];
+  markingPeriodData.forEach(function (item) {
+    if (item && item.category) { // Add a check to ensure item.category exists and is not undefined
       var category = item.category.trim(); // Apply trim here to remove whitespace
       if (!categories.hasOwnProperty(category)) {
         categories[category] = {};
       }
       categories[category][item.skill] = categories[category][item.skill] || [];
       categories[category][item.skill].push(item.total_grade);
-    });
+    }
   });
+});
 
   // Calculate marking period totals and create tables for each category
   Object.keys(categories).forEach(function (category) {
@@ -137,19 +133,27 @@ function createTable(data) {
     var cellTotalLabel = totalRow.insertCell();
     cellTotalLabel.innerHTML = 'Marking Period Totals';
 
+    var mpTotalsArray = []; // Array to store the marking period totals for the category
+
     // Add marking period total values
     Object.keys(data).forEach(function (mp) {
       var cellTotal = totalRow.insertCell();
       var totalGrades = markingPeriodTotals[mp]; // Get the total grades for the marking period
       var totalFraction = totalGrades + '/' + (gradingDates[mp] * totalSkills); // Calculate the total fraction
       cellTotal.innerHTML = totalFraction || 'N/A';
+
+      mpTotalsArray.push(totalFraction || 'N/A'); // Store the total fraction in the array
     });
+
+    // Store the marking period totals for the current category in the 2D array
+    markingPeriodTotalsPerCategory.push([category, ...mpTotalsArray]);
 
     grContainer.appendChild(table);
   });
+  console.log("Graph Data",markingPeriodTotalsPerCategory)
+    drawBarGraph(markingPeriodTotalsPerCategory);
+  return markingPeriodTotalsPerCategory; // Return the 2D array
 }
-
-
 
 function loadReport(gradingDates, mp) {
   const xhr = new XMLHttpRequest();
@@ -168,23 +172,19 @@ function loadReport(gradingDates, mp) {
   xhr.send();
 }
 
-$(function() {
-  $("#start-date").datepicker({
-    dateFormat: "mm/dd/yy",
-    onSelect: function(selected) {
-      var startDate = $(this).datepicker("getDate");
-      $("#end-date").datepicker("option", "minDate", startDate);
-    }
-  });
-
-  $("#end-date").datepicker({
-    dateFormat: "mm/dd/yy",
-    onSelect: function(selected) {
-      var endDate = $(this).datepicker("getDate");
-      $("#start-date").datepicker("option", "maxDate", endDate);
-    }
-  });
-
-});
-
 attendance();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
