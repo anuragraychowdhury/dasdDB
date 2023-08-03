@@ -3,7 +3,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 
 // Retrieve the input values from the URL parameters
-const studentName = urlParams.get('student-name');
+const studentName = urlParams.get('studentName');
 const teacher = urlParams.get('teacher');
 const jobCoachName = urlParams.get('job-coach-name');
 const workSite = urlParams.get('work-site');
@@ -11,13 +11,13 @@ const school = urlParams.get('school');
 const studentID = urlParams.get('studentID');
 
   // Display the retrieved values in the form
-document.getElementById('display-student-name').innerText = studentName;
-document.getElementById('display-teacher').innerText = teacher;
-document.getElementById('display-job-coach-name').innerText = jobCoachName;
-document.getElementById('display-work-site').innerText = workSite;
-document.getElementById('display-school').innerText = school;
+document.getElementById('studentNameGR').innerText = studentName;
+// document.getElementById('display-teacher').innerText = teacher;
+// document.getElementById('display-job-coach-name').innerText = jobCoachName;
+// document.getElementById('display-work-site').innerText = workSite;
+// document.getElementById('display-school').innerText = school;
 
-
+/*
 function generateReport() {
   // Get the student name from the HTML element
   var studentName = document.getElementById("studentNameHTML").innerText;
@@ -28,7 +28,7 @@ function generateReport() {
   // Redirect to the next page with the student name as a parameter
   window.location.href = "contextualData.html?studentName=" + encodedStudentName;
 }
-
+*/
 let gradingDates = {}; // Global variable for overall gradingDates
 
 function attendance() {
@@ -147,12 +147,72 @@ Object.keys(data).forEach(function (mp) {
 
     // Store the marking period totals for the current category in the 2D array
     markingPeriodTotalsPerCategory.push([category, ...mpTotalsArray]);
+    
+    var tableDiv = document.createElement('div');
+        tableDiv.style.width = '100%'; // Set the width to 100% to take up the full width of the table
 
-    grContainer.appendChild(table);
+        // Create a textarea element
+        var textarea = document.createElement('textarea');
+        textarea.style.width = '100%'; // Set the width to 100% to take up the full width of the table
+        textarea.rows = 3; // You can adjust the number of rows as needed
+        textarea.placeholder = 'Enter your comments here...';
+
+        // Append the textarea to the div
+        tableDiv.appendChild(textarea);
+
+        // Append the div with the textarea after each table
+        grContainer.appendChild(table);
+        grContainer.appendChild(tableDiv);
   });
   console.log("Graph Data",markingPeriodTotalsPerCategory)
     drawBarGraph(markingPeriodTotalsPerCategory);
   return markingPeriodTotalsPerCategory; // Return the 2D array
+}
+function createTextArea() {
+  var textarea = document.createElement('textarea');
+  textarea.setAttribute('rows', '5'); // Set the number of rows
+  textarea.setAttribute('cols', '100'); // Set the number of columns
+  textarea.setAttribute('placeholder', 'Enter your comment here...'); // Set the placeholder text
+  return textarea;
+}
+
+function drawBarGraph(data) {
+  // Prepare the data for the chart
+  const categories = data.map((item) => item[0]);
+  const mpTotals = data.map((item) => item.slice(1));
+
+  // Prepare the dataset for each marking period
+  const datasets = mpTotals[0].map((_, index) => ({
+    label: `Marking Period ${index + 1}`,
+    data: mpTotals.map((item) => item[index].split('/')[0]), // Extract the numerator from the fraction
+    backgroundColor: getRandomColor(), // Function to get random colors for each bar
+  }));
+
+  // Create the bar graph
+  const ctx = document.getElementById('barGraph').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: categories,
+      datasets: datasets,
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Grades',
+          },
+        },
+      },
+    },
+  });
+}
+
+function getRandomColor() {
+  // Function to generate a random color in hexadecimal format
+  return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 }
 
 function loadReport(gradingDates, mp) {
