@@ -54,7 +54,7 @@
         <button type="button" class="btn cancel" onclick="closeDeleteCatForm()">Cancel</button>
     </form>
 
-    <form action="contextualData.html" method="get" id="formToCD">
+    <form action="gradingReport.html" method="get" id="formToCD">
         <input type="hidden" id="sid" name="studentID" />
         <input type="hidden" id="sname" name="studentName" />
     </form>
