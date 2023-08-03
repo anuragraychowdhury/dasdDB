@@ -191,7 +191,15 @@ function drawBarGraph(data) {
   // Prepare the dataset for each marking period
   const datasets = mpTotals[0].map((_, index) => ({
     label: `Marking Period ${index + 1}`,
-    data: mpTotals.map((item) => item[index].split('/')[0]), // Extract the numerator from the fraction
+    data: mpTotals.map((item) => {
+      const fractionParts = item[index].split('/').map(Number);
+      if (fractionParts.length === 2) {
+        const percentage = (fractionParts[0] / fractionParts[1]) * 100;
+        return percentage.toFixed(2); // Limit decimal places to 2
+      } else {
+        return 'N/A';
+      }
+    }),
     backgroundColor: getRandomColor(), // Function to get random colors for each bar
   }));
 
@@ -207,15 +215,63 @@ function drawBarGraph(data) {
       scales: {
         y: {
           beginAtZero: true,
+          min: 0,
+          max: 100,
           title: {
             display: true,
-            text: 'Grades',
+            text: 'Percentage',
+          },
+          ticks: {
+            callback: function (value) {
+              return value + '%';
+            },
+          },
+        },
+      },
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: (context) => context.parsed.y + '%',
           },
         },
       },
     },
   });
 }
+
+// function drawBarGraph(data) {
+//   // Prepare the data for the chart
+//   const categories = data.map((item) => item[0]);
+//   const mpTotals = data.map((item) => item.slice(1));
+
+//   // Prepare the dataset for each marking period
+//   const datasets = mpTotals[0].map((_, index) => ({
+//     label: `Marking Period ${index + 1}`,
+//     data: mpTotals.map((item) => item[index].split('/')[0]), // Extract the numerator from the fraction
+//     backgroundColor: getRandomColor(), // Function to get random colors for each bar
+//   }));
+
+//   // Create the bar graph
+//   const ctx = document.getElementById('barGraph').getContext('2d');
+//   new Chart(ctx, {
+//     type: 'bar',
+//     data: {
+//       labels: categories,
+//       datasets: datasets,
+//     },
+//     options: {
+//       scales: {
+//         y: {
+//           beginAtZero: true,
+//           title: {
+//             display: true,
+//             text: 'Grades',
+//           },
+//         },
+//       },
+//     },
+//   });
+// }
 
 function getRandomColor() {
   // Function to generate a random color in hexadecimal format
