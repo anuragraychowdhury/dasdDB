@@ -6,33 +6,96 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   <title>Display Student Information</title>
   <style>
-    table {
-      border-collapse: collapse;
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #eaeaea; /* Light gray background */
+    }
+
+    #container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    fieldset {
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin-bottom: 20px;
+      background-color: #fff;
+    }
+
+    legend {
+      font-weight: bold;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input[type="text"] {
       width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      border: 1px solid #000; /* Black border around tables */
     }
 
     th, td {
-      border: 1px solid black;
+      border: 1px solid #000; /* Black borders around cells */
       padding: 8px;
       text-align: left;
     }
-    .boldStud{
-       font-weight:bold;
-       border: 1px solid black;
+
+    .boldStud {
+      font-weight: bold;
+      border: 1px solid #ccc;
+      padding: 8px;
     }
+
     .category-table {
       margin-bottom: 20px;
     }
-
+    
+    .comment-box {
+      max-width: 100%; /* Set maximum width for comment boxes */
+      padding: 15px; /* Increased padding */
+      margin-top: 15px; /* Increased margin */
+      margin-left: -25px; /* Shifted the comment box slightly to the left */
+    }
+    .comment-box textarea {
+      background-color: #f5f5f5; /* Slightly darker white */
+      padding: 8px; /* Adjusted padding */
+    }
+    
   </style>
 </head>
 <body>
-  <h1>Display Student Information</h1>
+  <div id="container">
+    <h1>Display Student Information</h1>
 
     <fieldset>
       <legend>Student Details</legend>
-      <label for="studentNameGR">Student Name: </label>
-      <span id="studentNameGR" class='boldStud'></span><br>
+      <label for="studentNameGR">Student Name:</label>
+      <span id="studentNameGR" class='boldStud'></span>
 
       <label for="teacher">Teacher:</label>
       <input type="text" autocomplete="off" id="teacher" name="teacher" required>
@@ -47,14 +110,17 @@
       <input type="text" autocomplete="off" id="school" name="school" required>
 
       <label for="display-attendance">Attendance:</label>
-      <span id="display-attendance"></span><br> <!-- New field for Attendance -->
+      <span id="display-attendance"></span>
     </fieldset>
 
     <h2>Report</h2>
 
     <div id="grContainer"></div>
-    <div> <canvas id="barGraph" width="400" height="200"></canvas> </div>
- 
+    <div>
+      <canvas id="barGraph" width="400" height="200"></canvas>
+    </div>
+  </div>
+
   <script src="gradingReport.js"></script>
 </body>
 </html>
