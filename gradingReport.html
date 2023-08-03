@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   <title>Display Student Information</title>
@@ -16,39 +16,35 @@
       padding: 8px;
       text-align: left;
     }
-    
+    .boldStud{
+       font-weight:bold;
+       border: 1px solid black;
+    }
     .category-table {
-  margin-bottom: 20px;
-}
+      margin-bottom: 20px;
+    }
 
   </style>
 </head>
 <body>
   <h1>Display Student Information</h1>
 
-  <form>
     <fieldset>
       <legend>Student Details</legend>
-      <label for="display-student-name">Student Name:</label>
-      <span id="display-student-name"></span><br>
+      <label for="studentNameGR">Student Name: </label>
+      <span id="studentNameGR" class='boldStud'></span><br>
 
-      <label for="display-start-date">Start Date:</label>
-      <span id="display-start-date"></span><br>
+      <label for="teacher">Teacher:</label>
+      <input type="text" autocomplete="off" id="teacher" name="teacher" required>
 
-      <label for="display-end-date">End Date:</label>
-      <span id="display-end-date"></span><br>
+      <label for="job-coach-name">Job Coach Name:</label>
+      <input type="text" autocomplete="off" id="job-coach-name" name="job-coach-name" required>
 
-      <label for="display-teacher">Teacher:</label>
-      <span id="display-teacher"></span><br>
+      <label for="work-site">Work Site:</label>
+      <input type="text" autocomplete="off" id="work-site" name="work-site" required>
 
-      <label for="display-job-coach-name">Job Coach Name:</label>
-      <span id="display-job-coach-name"></span><br>
-
-      <label for="display-work-site">Work Site:</label>
-      <span id="display-work-site"></span><br>
-
-      <label for="display-school">School:</label>
-      <span id="display-school"></span><br>
+      <label for="school">School:</label>
+      <input type="text" autocomplete="off" id="school" name="school" required>
 
       <label for="display-attendance">Attendance:</label>
       <span id="display-attendance"></span><br> <!-- New field for Attendance -->
@@ -58,7 +54,7 @@
 
     <div id="grContainer"></div>
     <div> <canvas id="barGraph" width="400" height="200"></canvas> </div>
-  </form>
+ 
   <script src="gradingReport.js"></script>
 </body>
 </html>
