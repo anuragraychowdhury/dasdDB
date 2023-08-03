@@ -94,14 +94,18 @@ Object.keys(data).forEach(function (mp) {
 
     var headerRow = table.insertRow();
     var cellCategory = headerRow.insertCell();
-    cellCategory.innerHTML = category;
+    cellCategory.innerHTML = `<b>${category}</b>`; // Bold formatting for category name
+  cellCategory.className = 'boldStud'
+  cellCategory.style.border = '1px solid black';
 
     var markingPeriodTotals = {}; // Store marking period totals
 
     // Add column headers for each marking period
     Object.keys(data).forEach(function (mp) {
       var cellMP = headerRow.insertCell();
-      cellMP.innerHTML = 'Marking Period ' + mp;
+      cellMP.innerHTML = `<b>Marking Period ${mp}</b>`; // Bold formatting for "Marking Period"
+    cellMP.className = 'boldStud';
+    cellMP.style.border = '1px solid black';
 
       markingPeriodTotals[mp] = 0; // Initialize marking period total to 0
     });
@@ -131,7 +135,9 @@ Object.keys(data).forEach(function (mp) {
     // Add row for marking period totals
     var totalRow = table.insertRow();
     var cellTotalLabel = totalRow.insertCell();
-    cellTotalLabel.innerHTML = 'Marking Period Totals';
+    cellTotalLabel.innerHTML = `<b>Marking Period Totals</b>`; // Bold formatting for "Marking Period Totals"
+  cellTotalLabel.className = 'boldStud';
+  cellTotalLabel.style.border = '1px solid black';
 
     var mpTotalsArray = []; // Array to store the marking period totals for the category
 
@@ -149,7 +155,8 @@ Object.keys(data).forEach(function (mp) {
     markingPeriodTotalsPerCategory.push([category, ...mpTotalsArray]);
     
     var tableDiv = document.createElement('div');
-        tableDiv.style.width = '100%'; // Set the width to 100% to take up the full width of the table
+        tableDiv.style.width = '100%';
+        tableDiv.className = 'comment-box';// Set the width to 100% to take up the full width of the table
 
         // Create a textarea element
         var textarea = document.createElement('textarea');
