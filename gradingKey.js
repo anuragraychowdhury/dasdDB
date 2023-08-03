@@ -1,5 +1,5 @@
 getCurrentDate();
-gradingDate = document.getElementById("gradingDate")
+gradingDate = document.getElementById("gradingDate");
 var date = gradingDate.value;
 const sid = new URLSearchParams(window.location.search).get('studentID');
 loadButtons();
@@ -93,7 +93,7 @@ function createButtons(data) {
       if (!absentButtonClicked) {
         // Only allow button click if "Manage Absent" is not clicked
         if (this.style.backgroundColor === "lightgreen") {
-          this.style.backgroundColor = "lightgray";
+          this.style.backgroundColor = "#bdd5e7";
         } else {
           this.style.backgroundColor = "lightgreen";
         }
