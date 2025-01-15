@@ -1,9 +1,11 @@
 <?php
-include 'dbConnection.php'; // Assuming you have a database connection file
+include 'dbConnection.php'; 
 
-$skillName = $_POST['SkillName']; // Change the parameter name to SkillName
+# retrieve the skill name from the web form
+$skillName = $_POST['SkillName']; 
 
-// Sanitize the input to prevent SQL injection
+# sanitize user inputs to prevent SQL injection attacks
+# refer to delete category for logic moving forward
 $skillName = mysqli_real_escape_string($conn, $skillName);
 
 $sql = "DELETE FROM skillKey WHERE skill = '$skillName'";

@@ -1,5 +1,7 @@
 <?php
 include 'dbConnection.php';
+
+# same overall logic as deleteSkill and deleteCategory
 $studentId = $_POST['studentId'];
 echo $studentId;
 

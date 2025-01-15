@@ -1,0 +1,31 @@
+Day 1:
+dbConnection.php (done)
+saveData.php (done)
+getStudents.php (done)
+deleteCategory.php (done)
+deleteSkill.php (done)
+deleteStudent.php (done)
+
+Day 2:
+addStudent.php
+addSkill.php
+addMpData.php
+index.html
+all CSS files
+
+Day 3:
+gradingKey.html
+gradingKey.js
+gradingReport.js
+contextualData.js
+
+Day 4:
+attendance.php
+checkAbsent.php
+markAbsent.php
+gradingReport.php
+getGradingButtons.php
+
+Day 5:
+(Deployment)
+
