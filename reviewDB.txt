@@ -15,16 +15,23 @@ gradingKey.html (done)
 all CSS files (done)
 
 Day 3:
-gradingKey.js
-gradingReport.js
-contextualData.js
-
-Day 4:
 attendance.php
 checkAbsent.php
 markAbsent.php
 gradingReport.php
 getGradingButtons.php
+
+Day 4:
+gradingKey.js
+gradingReport.js
+contextualData.js
+
+refer to:
+index.html 
+gradingKey.html
+gradingReport.html
+contextualData.html
+
 
 Day 5:
 (Deployment)
