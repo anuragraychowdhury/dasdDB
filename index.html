@@ -1,32 +1,44 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+  <!--meta tag makes sure that we can adjust screen size-->
+  <!--maximum scale also limits zooming-->
+  <!--stylesIndex.css is the styling used on the webpage-->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <link rel="stylesheet" id="theme-style" href="stylesIndex.css">
 </head>
+
 <body>
+  <!--main title for the page + search bar to search through the student names (id given to search bar - myInput)-->
   <h1>DASD Student Database:</h1>
   <input type="text" id="myInput" placeholder="Search for student names.." title="Type in a name">
 
+  <!--the table where the student names will show up-->
   <table id="myTable">
     <tr class="header">
       <th style="width:10%">Name</th>
     </tr>
   </table>
 
+  <!--hidden form which sends selected student data from the table to gradingKey.html-->
+  <!--get method appends hidden form data below to the URL; from there the data is used in gradingKey.html-->
   <form action="gradingKey.html" method="get" id="formToGK">
     <input type="hidden" id="sid" name="studentID" />
     <input type="hidden" id="sname" name="studentName" />
   </form>
 
+<!--aligns to the right side of the page; div to group the buttons together-->
 <div style="text-align: right;">
   <div class="button-container">
+  <!--add_student_button identifies button for JS manipulation-->
     <button class="open-button btn" id="add_student_button" onclick="AddOpenForm()">Add Student</button>
-    <!-- Button to open the pop-up form for marking period start and end dates -->
     <button class="open-button btn" onclick="OpenMarkingPeriodForm()">Add Marking Period</button>
   </div>
 </div>
-
+  
+<!--pop up added here to add student name; id variable used throughout the JS-->
+<!--form to add student is opened and closed here-->
   <div class="form-popup" id="addForm">
     <h1>Add Student</h1>
     <label for="AddStudentName"><b>Student Name</b></label>
@@ -36,6 +48,8 @@
     <button type="button" class="btn cancel" onclick="AddCloseForm()">Cancel</button>
   </div>
 
+
+<!--form data for MP1 is here and id attached to each MP for JS processing-->
   <div class="form-popup" id="markingPeriodForm">
     <h1>Add Marking Period</h1>
     <!-- Marking Period 1 -->
@@ -74,7 +88,9 @@
     <button type="button" class="btn cancel" onclick="CloseMarkingPeriodForm()">Cancel</button>
   </div>
 
+<!--displays a certain set of icons that can be seen in UI here-->  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/js/all.min.js"></script>
+<!--enables us to have access to all functions in studentList.js-->  
   <script src="studentList.js"></script>
 </body>
 </html>

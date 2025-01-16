@@ -7,27 +7,30 @@
 </head>
 
 <body>
+    <!--presence of respective buttons which all have a different functionality (refer to JS for specific functions)-->
     <button id="generateReportButton" onclick="sendNameID()">Generate Report</button>
     <button class="add-skill-button" onclick="openAddForm()">Add Skill</button>
-    <!-- New buttons with updated classes -->
     <button class="delete-skill-button" onclick="openDeleteForm()">Delete Skill</button>
     <button class="delete-category-button" onclick="openDeleteCatForm()">Delete Category</button>
     <button class="absent-button" onclick="markAbsent()">Mark Absent</button>
     
+    <!--how the grading key itself shows up-->
     <h1 class="custom-font"> Grading Key</h1>
     <h2 class="custom-font">Student Name: <span id="studentNameHTML"></span></h2>
     <h2>Date: <input type="date" id="gradingDate" onchange='dateRefresh()'></h2>
 
     <div id="buttonContainer">
-        <!-- Buttons will be dynamically created here -->
+    <!--buttons dynamically generated here through the javascript (refer to JS)-->
     </div>
 
     <div id="snackBarContainer"></div>
 
+    <!--save changes button + its corresponding functionality in the JS-->
     <div>
         <br><button class="save-changes" onclick="saveChanges()">Save Changes</button></br>
     </div>
     
+    <!--form to add the skills and the categories (logic to do so is in JS)-->
     <form id="addSkillForm" class="form-popup">
         <h1>Add Skill</h1>
         <label for="skillName"><b>Skill Name</b></label>
@@ -38,6 +41,7 @@
         <button type="button" class="btn cancel" onclick="closeAddForm()">Cancel</button>
     </form>
     
+    <!--form to delete the skills and the categories (logic to do so is in JS)-->
     <form id="deleteSkillForm" class="form-popup">
         <h1>Delete Skill</h1>
         <label for="skillToDelete"><b>Skill Name to Delete</b></label>
@@ -54,6 +58,7 @@
         <button type="button" class="btn cancel" onclick="closeDeleteCatForm()">Cancel</button>
     </form>
 
+    <!--hidden form to send needed data to gradingReport page and puts it into URL for processing-->
     <form action="gradingReport.html" method="get" id="formToCD">
         <input type="hidden" id="sid" name="studentID" />
         <input type="hidden" id="sname" name="studentName" />

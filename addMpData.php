@@ -1,7 +1,7 @@
 <?php
 include 'dbConnection.php';
 
-// Retrieve values from the form
+# obtain MP start date and end date from the form 
 $mp1 = $_POST['MP1'];
 $startDate1 = $_POST['StartDate1'];
 $endDate1 = $_POST['EndDate1'];
@@ -18,7 +18,7 @@ $mp4 = $_POST['MP4'];
 $startDate4 = $_POST['StartDate4'];
 $endDate4 = $_POST['EndDate4'];
 
-// SQL statement to insert the Marking Period data
+# insert into the mpData table all relevant pieces that we had from above
 $sql = "INSERT INTO mpData (markingPeriod, MPstartDate, MPendDate)
         VALUES
         ('$mp1', '$startDate1', '$endDate1'),
@@ -26,13 +26,14 @@ $sql = "INSERT INTO mpData (markingPeriod, MPstartDate, MPendDate)
         ('$mp3', '$startDate3', '$endDate3'),
         ('$mp4', '$startDate4', '$endDate4')";
 
-// Execute the SQL query
+# executes the sql query and checks if it processed correctly
+# another way to check if the sql query worked or not (different from other adds); procedural vs object oriented
 if (mysqli_query($conn, $sql)) {
     echo "Data inserted successfully.";
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
 
-// Close the database connection
+# as a part of mysqli_query, need to close the connection after use
 mysqli_close($conn);
 ?>

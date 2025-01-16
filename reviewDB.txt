@@ -7,14 +7,14 @@ deleteSkill.php (done)
 deleteStudent.php (done)
 
 Day 2:
-addStudent.php
-addSkill.php
-addMpData.php
-index.html
-all CSS files
+addStudent.php (done)
+addSkill.php (done)
+addMpData.php (done)
+index.html (done)
+gradingKey.html (done)
+all CSS files (done)
 
 Day 3:
-gradingKey.html
 gradingKey.js
 gradingReport.js
 contextualData.js
