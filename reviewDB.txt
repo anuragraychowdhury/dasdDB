@@ -22,19 +22,17 @@ gradingReport.php (done)
 getGradingButtons.php (done)
 
 Day 4:
-gradingKey.js
-contextualData.js
+gradingKey.js (WIP)
+contextualData.js (WIP)
 
 Day 5:
-gradingReport.js
-
-refer to:
-index.html 
-gradingKey.html
-gradingReport.html
-contextualData.html
-
+gradingKey.js (done)
+contextualData.js (done)
+contextualData.html (done)
 
 Day 6:
+gradingReport.js
+
+Day 7:
 (Deployment)
 
