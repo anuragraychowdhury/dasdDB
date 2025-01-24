@@ -31,7 +31,7 @@ contextualData.js (done)
 contextualData.html (done)
 
 Day 6:
-gradingReport.js
+gradingReport.js (done)
 
 Day 7:
 (Deployment)
