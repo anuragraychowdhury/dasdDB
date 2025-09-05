@@ -8,7 +8,7 @@ if (isset($_GET['grading_sid']) && isset($_GET['grading_date'])) {
 
     # result here will simply hold the grade based on the params provided inside the sql statement
     # stored in result and eventually fetched by the entry
-    $sql = "SELECT grade FROM gradingTable WHERE student_id = $sid AND date = '$date' AND skilltag = 0;";
+    $sql = "SELECT grade FROM gradingTable WHERE student_id = $sid AND date = '$date' AND skilltag = '0';";
     $result = $conn->query($sql);
     $entry = $result->fetch_assoc();
 

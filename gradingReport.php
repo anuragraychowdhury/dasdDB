@@ -24,12 +24,12 @@ while ($rowMarkingPeriod = $resultMarkingPeriods->fetch_assoc()) {
     # filters grades to only have the specific sid, start date and end date
     # join creates new tables which is ordered by skill, category and the total date (total date from above)
     # aggregate is a bigger table, but it is grouped by skill and category and then total grade is displayed for each
-    $sql = "SELECT skillKey.skill AS skill, skillKey.category, COALESCE(SUM(gradingTable.grade), 0) AS total_grade 
+    $sql = "SELECT skillKey.skilltag AS skill, skillKey.category, COALESCE(SUM(gradingTable.grade), 0) AS total_grade 
             FROM skillKey 
             LEFT JOIN gradingTable ON gradingTable.skilltag = skillKey.skilltag 
             AND gradingTable.student_id = $sid 
             AND gradingTable.date BETWEEN '$startDate' AND '$endDate' 
-            GROUP BY skillKey.skill, skillKey.category 
+            GROUP BY skillKey.skilltag, skillKey.category 
             ORDER BY skillKey.category";
 
     $result = $conn->query($sql);

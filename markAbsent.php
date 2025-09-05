@@ -27,12 +27,16 @@ if ($result_check->num_rows > 0) {
         echo "Error removing absent entry: " . $conn->error;
     }
 } else {
-    # the student is not marked as absent, so insert the absent entry
+    # the student is not marked as absent, so first clear any existing skills for this date
+    $sql_clear_skills = "DELETE FROM `gradingTable` WHERE `student_id` = '$sid' AND `date` = '$date' AND `skilltag` != '0'";
+    $result_clear_skills = $conn->query($sql_clear_skills);
+    
+    # then insert the absent entry
     $sql_insert_absent = "INSERT INTO `gradingTable` (`student_id`, `date`, `skilltag`, `grade`) VALUES ('$sid', '$date', '$skilltag', '$grade')";
     $result_insert_absent = $conn->query($sql_insert_absent);
 
     if ($result_insert_absent) {
-        echo "Student marked as absent with grade $grade for $date.";
+        echo "Student marked as absent and all skills cleared for $date.";
     } else {
         echo "Error marking student as absent: " . $conn->error;
     }

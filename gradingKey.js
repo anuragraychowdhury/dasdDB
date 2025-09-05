@@ -50,7 +50,7 @@ function loadButtons() {
       var absentButton = document.querySelector('.absent-button'); // JS object also assigned to the absent button
       
       // create buttons is run to generate the actual buttons themselves
-      createButtons(buttonData, absentButton.classList.contains('clicked')); // Pass the 'absentClicked' value
+      createButtons(buttonData); // Pass the buttonData
     }
   };
   xhr.open("GET", "getGradingButtons.php?grading_sid=" + sid + "&grading_date=" + date, true);
@@ -93,7 +93,7 @@ function createButtons(data) {
     buttonElement.textContent = skillName;
 
     // what color to make button
-    if (grade == 1) {
+    if (parseInt(grade) === 1) {
       buttonElement.style.backgroundColor = "lightgreen";
     }
 

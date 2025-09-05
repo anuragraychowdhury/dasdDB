@@ -20,7 +20,7 @@ while ($rowMarkingPeriod = $resultMarkingPeriods->fetch_assoc()) {
     # SELECT COUNT(DISTINCT date) AS total_unique_dates -> counts all distinct dates that are in the date column
     # SUM(CASE WHEN skilltag = 0 THEN 1 ELSE 0 END) AS total_dates_with_skilltag_0 -> when skilltag is 0, add 1 to sum, else 0; stored in total_dates_with_skilltag_0
     # when the skill tag is 0, that means nothing was selected, hence the attendance here is 1 for skill tag 0 to mark absence
-    $sql = "SELECT COUNT(DISTINCT date) AS total_unique_dates, SUM(CASE WHEN skilltag = 0 THEN 1 ELSE 0 END) AS total_dates_with_skilltag_0 
+    $sql = "SELECT COUNT(DISTINCT date) AS total_unique_dates, SUM(CASE WHEN skilltag = '0' THEN 1 ELSE 0 END) AS total_dates_with_skilltag_0 
             FROM gradingTable 
             WHERE student_id = $sid 
             AND date >= '$startDate' 
