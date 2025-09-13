@@ -87,7 +87,7 @@ The application uses a MySQL database with 4 main tables:
 │ student_id (PK) │    │ skill_id (PK)   │    │ mp_id (PK)      │
 │ student_name    │    │ skilltag        │    │ markingPeriod   │
 └─────────────────┘    │ category        │    │ MPstartDate     │
-         │              └─────────────────┘   │ MPendDate       │
+         │             └─────────────────┘    │ MPendDate       │
          │                       │            └─────────────────┘
          │                       │                       │
          │                       │                       │
