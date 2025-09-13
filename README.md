@@ -39,14 +39,14 @@ brew services start mysql
 
 ## 🚀 Quick Start
 
-### 1. Clone the Repository
+### 1. Clone the Repository (skip if project is already local)
 
 ```bash
 git clone https://github.com/anuragraychowdhury/dasdDB.git
 cd dasdDB
 ```
 
-### 2. Database Setup
+### 2. Database Setup (skip if database is set up)
 
 ```bash
 # Connect to MySQL as root
@@ -87,8 +87,8 @@ The application uses a MySQL database with 4 main tables:
 │ student_id (PK) │    │ skill_id (PK)   │    │ mp_id (PK)      │
 │ student_name    │    │ skilltag        │    │ markingPeriod   │
 └─────────────────┘    │ category        │    │ MPstartDate     │
-         │              └─────────────────┘    │ MPendDate       │
-         │                       │              └─────────────────┘
+         │              └─────────────────┘   │ MPendDate       │
+         │                       │            └─────────────────┘
          │                       │                       │
          │                       │                       │
          └───────────────────────┼───────────────────────┘
@@ -206,50 +206,3 @@ $username = "id19353024_testuser";
 $password = "Root_Truss_123";
 $dbname = "id19353024_test";
 ```
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-1. **Database Connection Error**
-   - Verify MySQL is running: `brew services start mysql`
-   - Check database credentials in `dbConnection.php`
-   - Ensure database and user exist
-
-2. **Skills Not Saving**
-   - Check browser console for JavaScript errors
-   - Verify PHP error logs
-   - Ensure database permissions are correct
-
-3. **Reports Showing 0/0**
-   - Verify marking period dates include your data dates
-   - Check that skills are properly marked
-   - Ensure attendance data is correct
-
-4. **Buttons Not Turning Green**
-   - Clear browser cache
-   - Check JavaScript console for errors
-   - Verify data is being saved to database
-
-### Debug Mode
-
-Enable PHP error reporting by adding to the top of PHP files:
-```php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-```
-
-## 👨‍💻 Author
-
-**Anurag Ray Chowdhury**
-- GitHub: [@anuragraychowdhury](https://github.com/anuragraychowdhury)
-
-## 🙏 Acknowledgments
-
-- Built for DASD (Developmental and Adaptive Skills Development) programs
-- Designed with special education needs in mind
-- Inspired by the need for comprehensive student progress tracking
-
----
-
-**Happy Teaching! 📚✨**
