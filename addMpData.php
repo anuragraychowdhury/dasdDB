@@ -1,4 +1,15 @@
 <?php
+/**
+ * Add Marking Period Data API
+ * 
+ * This file handles adding marking period data to the database. It receives marking period
+ * names and their corresponding start/end dates via POST request and inserts all four
+ * marking periods into the mpData table in a single operation.
+ * 
+ * @author Anurag Ray Chowdhury
+ * @version 1.0
+ */
+
 include 'dbConnection.php';
 
 # obtain MP start date and end date from the form 

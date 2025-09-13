@@ -1,4 +1,15 @@
 <?php
+/**
+ * Delete Skill API
+ * 
+ * This file handles deleting a skill from the database. It receives a skill name
+ * via POST request, sanitizes the input to prevent SQL injection, and removes
+ * the corresponding record from the skillKey table.
+ * 
+ * @author Anurag Ray Chowdhury
+ * @version 1.0
+ */
+
 include 'dbConnection.php'; 
 
 # retrieve the skill name from the web form

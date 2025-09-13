@@ -1,4 +1,14 @@
 <?php
+/**
+ * Get Students Data API
+ * 
+ * This file retrieves all student records from the studentKey table and returns them
+ * as JSON data. It's used by the main page to populate the student list dynamically.
+ * 
+ * @author Anurag Ray Chowdhury
+ * @version 1.0
+ */
+
 include 'dbConnection.php';
 
 # retrieves the student_id and the student_name from the studentkey table 

@@ -1,3 +1,14 @@
+/**
+ * Grading Interface JavaScript - DASD Student Database
+ * 
+ * This file handles the student grading interface functionality including loading skill buttons,
+ * managing skill selections, saving changes, marking students absent, and managing skills/categories.
+ * It provides the core interaction logic for the grading system.
+ * 
+ * @author Anurag Ray Chowdhury
+ * @version 1.0
+ */
+
 // makes it so that this is the first thing that happens (date is retrieved)
 // date and the student id are retrieved here -> tied to the gradingKey.html page
 getCurrentDate();

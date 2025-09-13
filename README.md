@@ -5,11 +5,7 @@ A comprehensive PHP-based student grading and attendance tracking system designe
 ## 🎯 Features
 
 - **Student Management**: Add, view, and manage student records
-- **Skill Tracking**: Track 12 different skills across 4 categories:
-  - **Promptness**: Timely Attendance, Prepared for Class, Follows Daily Routine
-  - **Hygiene**: Clean Hands, Personal Care, Healthy Habits
-  - **Communication**: Expresses Needs Clearly, Listens to Others, Takes Turns in Conversation
-  - **Self-Management**: Follows Directions, Manages Emotions, Stays on Task
+- **Skill Tracking**: Track skills across customizable categories
 - **Attendance Management**: Mark students absent and prevent skill marking on absent days
 - **Marking Periods**: Organize data across 4 marking periods throughout the school year
 - **Comprehensive Reports**: Generate detailed reports with visual charts and progress tracking
@@ -64,21 +60,14 @@ FLUSH PRIVILEGES;
 EXIT;
 ```
 
-### 3. Import Database Schema
-
-```bash
-# Run the database setup script
-mysql -u id19353024_testuser -p'Root_Truss_123' < setup_database.sql
-```
-
-### 4. Start the Application
+### 3. Start the Application
 
 ```bash
 # Start PHP development server
 php -S localhost:8000
 ```
 
-### 5. Access the Application
+### 4. Access the Application
 
 Open your web browser and navigate to:
 ```
@@ -87,35 +76,70 @@ http://localhost:8000
 
 ## 📊 Database Schema
 
-### Tables
+The application uses a MySQL database with 4 main tables:
 
-1. **studentKey**: Stores student information
-   - `student_id` (Primary Key)
-   - `student_name`
+### Database Structure
 
-2. **skillKey**: Stores skills and categories
-   - `skill_id` (Primary Key)
-   - `skilltag` (Skill name)
-   - `category` (Skill category)
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   studentKey    │    │    skillKey     │    │     mpData      │
+├─────────────────┤    ├─────────────────┤    ├─────────────────┤
+│ student_id (PK) │    │ skill_id (PK)   │    │ mp_id (PK)      │
+│ student_name    │    │ skilltag        │    │ markingPeriod   │
+└─────────────────┘    │ category        │    │ MPstartDate     │
+         │              └─────────────────┘    │ MPendDate       │
+         │                       │              └─────────────────┘
+         │                       │                       │
+         │                       │                       │
+         └───────────────────────┼───────────────────────┘
+                                 │
+                    ┌─────────────────┐
+                    │  gradingTable   │
+                    ├─────────────────┤
+                    │ grading_id (PK) │
+                    │ student_id (FK) │◄─── studentKey
+                    │ date            │
+                    │ skilltag (FK)   │◄─── skillKey
+                    │ grade           │
+                    └─────────────────┘
+```
 
-3. **mpData**: Stores marking period information
-   - `mp_id` (Primary Key)
-   - `markingPeriod` (MP1, MP2, MP3, MP4)
-   - `MPstartDate`
-   - `MPendDate`
+### Table Details
 
-4. **gradingTable**: Stores grading records
-   - `grading_id` (Primary Key)
-   - `student_id` (Foreign Key)
-   - `date`
-   - `skilltag` (Skill ID)
-   - `grade` (1 for marked, 0 for absent)
+#### 1. **studentKey** - Student Information
+- `student_id` (Primary Key, Auto Increment)
+- `student_name` (VARCHAR) - Student's full name
+
+#### 2. **skillKey** - Skills and Categories
+- `skill_id` (Primary Key, Auto Increment) 
+- `skilltag` (VARCHAR) - Name of the skill
+- `category` (VARCHAR) - Category the skill belongs to
+
+#### 3. **mpData** - Marking Periods
+- `mp_id` (Primary Key, Auto Increment)
+- `markingPeriod` (VARCHAR) - Period name (e.g., "MP1", "MP2")
+- `MPstartDate` (DATE) - Start date of marking period
+- `MPendDate` (DATE) - End date of marking period
+
+#### 4. **gradingTable** - Student Grades and Attendance
+- `grading_id` (Primary Key, Auto Increment)
+- `student_id` (Foreign Key) - References studentKey.student_id
+- `date` (DATE) - Date of the grade/attendance record
+- `skilltag` (INT) - References skillKey.skill_id (0 = absent)
+- `grade` (INT) - 1 for completed skill, 0 for absent
+
+### Key Relationships
+
+- **One-to-Many**: One student can have many grading records
+- **One-to-Many**: One skill can be graded many times across different students/dates
+- **Attendance Logic**: When `skilltag = 0`, it represents an absence record
+- **Marking Periods**: Used to filter and organize data by academic periods
 
 ## 🎮 How to Use
 
 ### Adding Students
 1. Navigate to the main page
-2. Use the "Add Student" functionality
+2. Click "Add Student" button
 3. Enter student name and save
 
 ### Grading Students
@@ -123,11 +147,11 @@ http://localhost:8000
 2. Select the date for grading
 3. Click on skill buttons to mark them as completed (green)
 4. Click "Save Changes" to persist the data
-5. Use "Manage Absent" to mark a student absent for the day
+5. Use "Mark Absent" to mark a student absent for the day
 
 ### Generating Reports
 1. Click on a student from the main list
-2. Navigate to the "Report" section
+2. Click "Generate Report" button
 3. View comprehensive reports with:
    - Skill progress across marking periods
    - Visual charts showing performance
@@ -138,25 +162,6 @@ http://localhost:8000
 - **Add Skills**: Use the "Add Skill" form to add new skills
 - **Delete Skills**: Remove skills that are no longer needed
 - **Categories**: Organize skills into meaningful categories
-
-## 🔧 Configuration
-
-### Database Connection
-The database connection is configured in `dbConnection.php`:
-
-```php
-$servername = "localhost";
-$username = "id19353024_testuser";
-$password = "Root_Truss_123";
-$dbname = "id19353024_test";
-```
-
-### Marking Periods
-Default marking periods are set for the 2025-2026 school year:
-- **MP1**: September 1-15, 2025
-- **MP2**: September 16-30, 2025
-- **MP3**: October 1-15, 2025
-- **MP4**: October 16-31, 2025
 
 ## 📁 Project Structure
 
@@ -175,7 +180,7 @@ dasdDB/
 ├── checkAbsent.php        # Check absence status
 ├── attendance.php         # Attendance calculations
 ├── gradingReport.php      # Report data generation
-├── addStudent.php         # Add new students
+├── addStudent (1).php     # Add new students
 ├── addSkill.php           # Add new skills
 ├── deleteStudent.php      # Remove students
 ├── deleteSkill.php        # Remove skills
@@ -188,6 +193,18 @@ dasdDB/
 ├── stylesGK.css           # Grading interface styles
 ├── search_table_style.css # Table styling
 └── README.md              # This file
+```
+
+## 🔧 Configuration
+
+### Database Connection
+The database connection is configured in `dbConnection.php`:
+
+```php
+$servername = "localhost";
+$username = "id19353024_testuser";
+$password = "Root_Truss_123";
+$dbname = "id19353024_test";
 ```
 
 ## 🐛 Troubleshooting
@@ -222,18 +239,6 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 ```
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
 ## 👨‍💻 Author
 
 **Anurag Ray Chowdhury**
@@ -244,14 +249,6 @@ This project is open source and available under the [MIT License](LICENSE).
 - Built for DASD (Developmental and Adaptive Skills Development) programs
 - Designed with special education needs in mind
 - Inspired by the need for comprehensive student progress tracking
-
-## 📞 Support
-
-If you encounter any issues or have questions:
-
-1. Check the [Issues](https://github.com/anuragraychowdhury/dasdDB/issues) page
-2. Create a new issue with detailed information
-3. Include error messages and steps to reproduce
 
 ---
 

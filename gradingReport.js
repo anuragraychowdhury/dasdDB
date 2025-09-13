@@ -1,3 +1,14 @@
+/**
+ * Grading Report JavaScript - DASD Student Database
+ * 
+ * This file handles the grading report display functionality including generating
+ * comprehensive student reports, creating tables with skill progress data,
+ * calculating attendance statistics, and rendering visual charts using Chart.js.
+ * 
+ * @author Anurag Ray Chowdhury
+ * @version 1.0
+ */
+
 // get the URL parameters
 const urlParams = new URLSearchParams(window.location.search);
 

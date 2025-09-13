@@ -1,4 +1,15 @@
 <?php
+/**
+ * Mark Absent API
+ * 
+ * This file handles marking students as absent for a specific date. It toggles the
+ * absent status and clears any existing skill grades for that date when marking absent.
+ * When unmarking absent, it removes the absence record.
+ * 
+ * @author Anurag Ray Chowdhury
+ * @version 1.0
+ */
+
 include 'dbConnection.php'; 
 
 # displaying of errors here

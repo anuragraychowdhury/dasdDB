@@ -1,4 +1,15 @@
 <?php
+/**
+ * Delete Category API
+ * 
+ * This file handles deleting all skills within a specific category from the database.
+ * It receives a category name via POST request, sanitizes the input to prevent SQL injection,
+ * and removes all records with that category from the skillKey table.
+ * 
+ * @author Anurag Ray Chowdhury
+ * @version 1.0
+ */
+
 include 'dbConnection.php'; 
 
 # post takes in data submitted from the form (webpage) by the user 

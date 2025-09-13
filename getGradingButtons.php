@@ -1,4 +1,15 @@
 <?php
+/**
+ * Get Grading Buttons Data API
+ * 
+ * This file retrieves skill data and current grades for a specific student and date.
+ * It returns JSON data containing skill information and their current grade status
+ * (marked or unmarked) to populate the grading interface buttons.
+ * 
+ * @author Anurag Ray Chowdhury
+ * @version 1.0
+ */
+
 include 'dbConnection.php';
 
 # retrieves appropriate data from the URL

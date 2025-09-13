@@ -1,4 +1,15 @@
 <?php
+/**
+ * Grading Report Data API
+ * 
+ * This file generates grading report data for a specific student across all marking periods.
+ * It returns JSON data containing skill performance statistics organized by marking period,
+ * used for creating comprehensive student progress reports with charts.
+ * 
+ * @author Anurag Ray Chowdhury
+ * @version 1.0
+ */
+
 include 'dbConnection.php';
 $sid = $_GET['student_id'];
 

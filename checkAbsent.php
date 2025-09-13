@@ -1,4 +1,15 @@
 <?php
+/**
+ * Check Absent Status API
+ * 
+ * This file checks whether a student is marked as absent for a specific date.
+ * It returns "1" if the student is absent (skilltag = 0 with grade = 1) or "0" if not absent.
+ * Used by the grading interface to determine button states and styling.
+ * 
+ * @author Anurag Ray Chowdhury
+ * @version 1.0
+ */
+
 include 'dbConnection.php';
 
 # checks whether grading sid and grading date are in the URL (gets if that is the case)

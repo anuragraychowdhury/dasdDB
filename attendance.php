@@ -1,4 +1,15 @@
 <?php
+/**
+ * Attendance Data API
+ * 
+ * This file calculates attendance statistics for a specific student across all marking periods.
+ * It returns JSON data containing total days and absent days for each marking period,
+ * used for generating attendance reports.
+ * 
+ * @author Anurag Ray Chowdhury
+ * @version 1.0
+ */
+
 include 'dbConnection.php';
 
 # in a GET, the data is in the URl (fetches data as opposed to submitting data)

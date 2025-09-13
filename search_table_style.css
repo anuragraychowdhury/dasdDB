@@ -1,3 +1,13 @@
+/**
+ * Search Table Styles - DASD Student Database
+ * 
+ * This file contains CSS styles specifically for search functionality and table display.
+ * It provides styling for the search input field and student table layout.
+ * 
+ * @author Anurag Ray Chowdhury
+ * @version 1.0
+ */
+
 myInput {
   background-image: url('/css/searchicon.png'); /* Add a search icon to input */
   background-position: 10px 12px; /* Position the search icon */
