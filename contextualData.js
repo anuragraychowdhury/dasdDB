@@ -5,8 +5,6 @@
  * date picker interfaces, form validation, and data submission for report generation.
  * It provides an intermediate step for collecting additional student information.
  * 
- * @author Anurag Ray Chowdhury
- * @version 1.0
  */
 
 const studentName = new URLSearchParams(window.location.search).get('studentName');

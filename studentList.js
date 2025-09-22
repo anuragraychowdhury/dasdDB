@@ -5,8 +5,6 @@
  * search functionality, adding new students, managing marking periods, and navigation
  * to individual student grading interfaces.
  * 
- * @author Anurag Ray Chowdhury
- * @version 1.0
  */
 
 getStudent();

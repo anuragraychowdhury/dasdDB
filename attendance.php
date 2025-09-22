@@ -6,8 +6,6 @@
  * It returns JSON data containing total days and absent days for each marking period,
  * used for generating attendance reports.
  * 
- * @author Anurag Ray Chowdhury
- * @version 1.0
  */
 
 include 'dbConnection.php';

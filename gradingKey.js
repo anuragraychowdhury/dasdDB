@@ -5,8 +5,6 @@
  * managing skill selections, saving changes, marking students absent, and managing skills/categories.
  * It provides the core interaction logic for the grading system.
  * 
- * @author Anurag Ray Chowdhury
- * @version 1.0
  */
 
 // makes it so that this is the first thing that happens (date is retrieved)

@@ -6,8 +6,6 @@
  * via POST request, sanitizes the input to prevent SQL injection, and removes
  * the corresponding record from the skillKey table.
  * 
- * @author Anurag Ray Chowdhury
- * @version 1.0
  */
 
 include 'dbConnection.php'; 

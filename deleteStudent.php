@@ -5,8 +5,6 @@
  * This file handles deleting a student from the database. It receives a student ID
  * via POST request and removes the corresponding record from the studentKey table.
  * 
- * @author Anurag Ray Chowdhury
- * @version 1.0
  */
 
 include 'dbConnection.php';

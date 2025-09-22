@@ -6,8 +6,6 @@
  * for a specific student and date, prevents skill marking when student is absent, and updates
  * the gradingTable with the new grade records.
  * 
- * @author Anurag Ray Chowdhury
- * @version 1.0
  */
 
 # connection to the database

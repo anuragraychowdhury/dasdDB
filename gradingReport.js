@@ -5,8 +5,6 @@
  * comprehensive student reports, creating tables with skill progress data,
  * calculating attendance statistics, and rendering visual charts using Chart.js.
  * 
- * @author Anurag Ray Chowdhury
- * @version 1.0
  */
 
 // get the URL parameters

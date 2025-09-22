@@ -6,8 +6,6 @@
  * It returns "1" if the student is absent (skilltag = 0 with grade = 1) or "0" if not absent.
  * Used by the grading interface to determine button states and styling.
  * 
- * @author Anurag Ray Chowdhury
- * @version 1.0
  */
 
 include 'dbConnection.php';

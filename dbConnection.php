@@ -6,8 +6,6 @@
  * It contains the database credentials and creates a mysqli connection object that is used
  * throughout the application for all database operations.
  * 
- * @author Anurag Ray Chowdhury
- * @version 1.0
  */
 
 #server specific data that can be changed if the location of the database changes

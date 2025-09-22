@@ -6,8 +6,6 @@
  * It returns JSON data containing skill information and their current grade status
  * (marked or unmarked) to populate the grading interface buttons.
  * 
- * @author Anurag Ray Chowdhury
- * @version 1.0
  */
 
 include 'dbConnection.php';

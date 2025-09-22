@@ -5,8 +5,6 @@
  * This file handles adding new skills to the database. It receives skill name and
  * category data via POST request and inserts a new record into the skillKey table.
  * 
- * @author Anurag Ray Chowdhury
- * @version 1.0
  */
 
 include 'dbConnection.php';
